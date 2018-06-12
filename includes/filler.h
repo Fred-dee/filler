@@ -38,4 +38,5 @@ typedef struct s_piece
 int			get_map(t_map *map);
 int			init_map(t_map *map);
 void		free_map(t_map *map);
+int			get_piece(t_piece *p);
 #endif
