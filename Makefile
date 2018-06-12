@@ -1,28 +1,28 @@
 SRC_PATH = ./src/
 INC_PATH = ./includes/
-SRC = $(addprefix $(SRC_PATH), $(wildcard *.c))
+SRC = $(wildcard $(SRC_PATH)*.c)
+INCLUDES = $(wildcard $(INC_PATH)*.h)
 OBJ = $(SRC:.c=.o)
 OBJ_PATH = ./obj/
 FLAGS = -Wall \
 		-Werror \
 		-Wextra
-NAME = mdilapi.filler
+NAME = ./resources/players/mdilapi.filler
 LDFLAGS = -L./libft/
 LFT = -lft
+vpath %.o ./src
 
 all: $(NAME)
 
 $(NAME): $(OBJ) $(INC_PATH)
 	@make -C./libft/
-	gcc $(FLAGS) $(LDFLAGS) $(LFT) $(OBJ) -o $@
+	gcc $(FLAGS) $(LDFLAGS) $(LFT) $(wildcard *.o) -o $@
 
-$(OBJ_PATH)%.o: $(SRC_PATH)%.c
-	@mkdir $(OBJ_PATH) 2> /dev/null || true
-	gcc -I$(INC_PATH) -o $@ -c $<
+$(SRC_PATH)%.o: $(SRC)
+	gcc -c $(FLAGS) -I$(INCLUDES) $(SRC) 
 
 clean : libclean
 	@rm -f $(OBJ)
-	@rmdir $(OBJ_PATH) 2> /dev/null || true
 
 libclean:
 	@make clean -C ./libft/
