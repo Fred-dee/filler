@@ -10,6 +10,9 @@
 #                                                                              #
 # **************************************************************************** #
 
-#/bin/sh
-cd ../ && make re && cd ./resources
+#!/bin/bash
+if [ "$1" == "make" ]
+then
+	cd ../ && make re && cd ./resources
+fi
 ./filler_vm -f ./maps/map00 -p1 ./players/mdilapi.filler -p2 ./players/abanlin.filler
