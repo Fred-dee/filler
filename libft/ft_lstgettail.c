@@ -14,11 +14,7 @@
 
 t_list	*ft_lstgettail(t_list *root)
 {
-	t_list *tmp;
-
-	tmp = NULL;
-	if (root != NULL)
-		while (tmp != NULL && tmp->next != NULL)
-			tmp =  tmp->next;
-	return (tmp);
+	while (root != NULL && root->next != NULL)
+		root = root->next;
+	return (root);
 }

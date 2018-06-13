@@ -12,7 +12,6 @@
 
 #include "libft.h"
 
-
 t_list	*part(t_list *head, t_list *tail, t_list **n_head, t_list **n_tail)
 {
 	t_list	*pivot;
@@ -29,8 +28,8 @@ t_list	*part(t_list *head, t_list *tail, t_list **n_head, t_list **n_tail)
 	{
 		if (curr->content_size > pivot->content_size)
 		{
-			if (*n_head == NULL)
-				*n_head = curr;
+			if ((*n_head) == NULL)
+				(*n_head) = curr;
 			prev = curr;
 			curr = curr->next;
 		}
@@ -45,9 +44,9 @@ t_list	*part(t_list *head, t_list *tail, t_list **n_head, t_list **n_tail)
 			curr = tmp;
 		}
 	}
-	if (*n_head == NULL)
-		*n_head = pivot;
-	*n_head = in_t;
+	if ((*n_head) == NULL)
+		(*n_head) = pivot;
+	(*n_tail) = in_t;
 	return (pivot);
 }
 
@@ -74,6 +73,7 @@ t_list	*qsr(t_list *head, t_list *tail)
 		tmp->next = pivot;
 	}
 	pivot->next = qsr(pivot->next, n_tail);
+	return (n_head);
 }
 
 void	ft_lstquicksort(t_list **headref)
