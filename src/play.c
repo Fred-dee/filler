@@ -10,4 +10,54 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../includes/filler.h"
 
+t_move	*new_move(int x, int y)
+{
+	t_move *ret;
+
+	ret = NULL;
+	if ((ret = (t_move *)malloc(sizeof(t_move))) != NULL)
+	{
+		ret->x = x;
+		ret->y = y;
+	}
+	return (ret);
+}
+
+int		is_valid_move(t_map *map, t_piece *piece, int x, int y)
+{
+	if (piece->y_len + y > map->y_len)
+		return (-1);
+	if (piece->x_len + x > map->y_len)
+		return (-1);
+
+}
+/*
+appl_heuristic takes the list of generated moves
+assigns the content_size the value of the heuristic
+*/
+void	apply_heuristic(t_list *lst,)
+{
+
+}
+
+t_list	*gen_moves(t_map *map, t_piece *piece)
+{
+	t_list *head;
+	t_list *tmp;
+	int		i;
+	int		j;
+
+	i = 0;
+	while (i < map->y_len)
+	{
+		j = 0;
+		while (j < map->x_len)
+		{
+			
+		}
+		i++;
+	}
+
+}
