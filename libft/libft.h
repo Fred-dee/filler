@@ -86,4 +86,6 @@ void					ft_lstdelone(t_list **alst,
 void					ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list					*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 t_list					*ft_lstnew(void const *content, size_t content_size);
+t_list					*ft_lstgettail(t_list *root);
+void					ft_lstquicksort(t_list **headref);
 #endif
