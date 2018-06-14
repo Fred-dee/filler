@@ -32,32 +32,44 @@ int		is_valid_move(t_map *map, t_piece *piece, int x, int y)
 	if (piece->x_len + x > map->y_len)
 		return (-1);
 
+	return (0);
 }
 /*
 appl_heuristic takes the list of generated moves
 assigns the content_size the value of the heuristic
 */
-void	apply_heuristic(t_list *lst,)
+void	apply_heuristic(t_list *lst, t_map *map, t_piece *piece)
 {
-
+	(void) lst;
+	(void) map;
+	(void) piece;
 }
 
 t_list	*gen_moves(t_map *map, t_piece *piece)
 {
 	t_list *head;
-	t_list *tmp;
+	t_move *val_mov;
 	int		i;
 	int		j;
 
-	i = 0;
+	i = 9;
+	head = NULL;
 	while (i < map->y_len)
 	{
-		j = 0;
+		j = 2;
 		while (j < map->x_len)
 		{
-			
+			if (is_valid_move(map, piece, j, i) == 0)
+			{
+				val_mov = new_move(j, i);
+				if (head == NULL)
+					head = ft_lstnew(val_mov, sizeof(val_mov));
+				else
+					ft_lstaddback(&head, ft_lstnew(val_mov, sizeof(val_mov)));
+			}
+			j++;
 		}
 		i++;
 	}
-
+	return (head);
 }

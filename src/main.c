@@ -19,6 +19,8 @@ int		main(void)
 {
 	t_map	*map;
 	t_piece	*piece;
+	t_list	*moves;
+	t_move	*fin;
 	int		i;
 
 	i = 0;
@@ -27,14 +29,24 @@ int		main(void)
 	if((piece = (t_piece *)malloc(sizeof(t_piece))) == NULL)
 		return (-1);
 	init_map(map);
-	get_map(map);
-	get_piece(piece);
+
 	while ( i == 0)
 	{
-		ft_putnbr(piece->y_len);
-		ft_putchar(' ');
-		ft_putnbr(piece->x_len);
-		ft_putchar('\n');
+		get_map(map);
+		get_piece(piece);
+		moves = gen_moves(map, piece);
+		if (moves != NULL)
+		{
+			apply_heuristic(moves, map, piece);
+			ft_lstquicksort(&moves);
+			fin = (t_move *)moves->content;
+			ft_putnbr_fd(fin->x, 1);
+			ft_putchar_fd(' ', 1);
+			ft_putnbr_fd(fin->y, 1);
+			ft_putchar_fd('\n', 1);
+		}
+		else
+			ft_putstr_fd("0 0\n", 1);
 	}
 	free_map(map);
 	return (0);

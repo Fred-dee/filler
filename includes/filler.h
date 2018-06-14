@@ -35,8 +35,16 @@ typedef struct s_piece
 	char		**shape;
 }				t_piece;
 
-int			get_map(t_map *map);
-int			init_map(t_map *map);
-void		free_map(t_map *map);
-int			get_piece(t_piece *p);
+typedef	struct	s_move
+{
+	int			x;
+	int			y;
+}				t_move;
+
+int				get_map(t_map *map);
+int				init_map(t_map *map);
+void			free_map(t_map *map);
+int				get_piece(t_piece *p);
+t_list			*gen_moves(t_map *map, t_piece *piece);
+void			apply_heuristic(t_list *lst, t_map *map, t_piece *piece);
 #endif
