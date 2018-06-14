@@ -25,6 +25,7 @@ SRC =	ft_atoi.c \
 		ft_isupper.c \
 		ft_itoa.c \
 		ft_lstadd.c \
+		ft_lstaddback.c \
 		ft_lstdel.c \
 		ft_lstdelone.c \
 		ft_lstgettail.c \
