@@ -27,7 +27,7 @@ clean : libclean
 libclean:
 	@make clean -C ./libft/
 
-flcean: clean flibclean
+fclean: clean flibclean
 	@rm -f $(NAME)
 
 flibclean:
