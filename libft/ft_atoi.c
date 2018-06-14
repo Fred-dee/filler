@@ -13,15 +13,6 @@
 #include "libft.h"
 #include <string.h>
 
-static int	is_space(int c)
-{
-	if (c == ' ' || c == '\t' || c == '\n')
-		return (1);
-	if (c == '\v' || c == '\f' || c == '\r')
-		return (1);
-	return (0);
-}
-
 static int	work(const char *str, int sign)
 {
 	long	ret;
@@ -49,7 +40,7 @@ int			ft_atoi(const char *str)
 	int		sign;
 
 	tmp = (char *)str;
-	while (*tmp != '\0' && is_space(*tmp) == 1)
+	while (*tmp != '\0' && ft_isspace(*tmp) > 0)
 		tmp++;
 	if (*tmp == '\0')
 		return (0);
