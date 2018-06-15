@@ -27,10 +27,20 @@ t_move	*new_move(int x, int y)
 
 int		is_valid_move(t_map *map, t_piece *piece, int x, int y)
 {
+	char	c;
+	int		match_count;
+	int		i;
+	int		j;
+
+	c = map->pc;
+	match_count = 0;
 	if (piece->y_len + y > map->y_len)
 		return (-1);
 	if (piece->x_len + x > map->y_len)
 		return (-1);
+	i = y;
+	j = x;
+	while (i < )
 
 	return (0);
 }
@@ -52,12 +62,12 @@ t_list	*gen_moves(t_map *map, t_piece *piece)
 	int		i;
 	int		j;
 
-	i = 9;
+	i = piece->y_len - 1;
 	head = NULL;
-	while (i < map->y_len)
+	while (i + piece->y_len -1 < map->y_len)
 	{
-		j = 2;
-		while (j < map->x_len)
+		j = 0;
+		while (j + piece->x_len -1 < map->x_len)
 		{
 			if (is_valid_move(map, piece, j, i) == 0)
 			{
