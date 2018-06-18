@@ -16,7 +16,7 @@
 # include <string.h>
 # include <unistd.h>
 # include <stdio.h>
-# include "../libft/libft.h"
+# include "libft.h"
 # include "get_next_line.h"
 
 typedef struct	s_map

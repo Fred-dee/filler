@@ -1,36 +1,71 @@
-SRC_PATH = ./src/
-INC_PATH = ./includes/
-SRC = $(wildcard $(SRC_PATH)*.c)
-INCLUDES = $(wildcard $(INC_PATH)*.h)
-OBJ = $(SRC:.c=.o)
-OBJ_PATH = ./obj/
-FLAGS = -Wall \
-		-Werror \
-		-Wextra
+# Binary
+
 NAME = ./resources/players/mdilapi.filler
+
+# Path
+
+SRC_PATH = ./src/
+
+OBJ_PATH = ./objs/
+
+INC_PATH = ./includes/
+
+# Name
+
+SRC_NAME =	main.c			\
+			get_next_line.c		\
+			map.c		\
+			piece.c	\
+			play.c	\
+
+OBJ_NAME = $(SRC_NAME:.c=.o)
+
+# Files
+
+SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
+
+OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
+
+# Flags
+
 LDFLAGS = -L./libft/
+
 LFT = -lft
-vpath %.o ./src
+
+CC = gcc $(CFLAGS)
+#-fsanitize=address
+
+CFLAGS = -Wall -Wextra -Werror
+
+# Rules
 
 all: $(NAME)
 
 $(NAME): $(OBJ) $(INC_PATH)
 	@make -C./libft/
-	gcc $(FLAGS) $(LDFLAGS) $(LFT) $(wildcard *.o) -o $@
+	@echo "\033[34mCreation of $(NAME) ...\033[0m"
+	@$(CC) $(LDFLAGS) $(LFT) $(OBJ) -o $@
+	@echo "\033[32m$(NAME) created\n\033[0m"
 
-$(SRC_PATH)%.o: $(SRC)
-	gcc -c $(FLAGS) -I$(INCLUDES) $(SRC) 
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c
+	@mkdir $(OBJ_PATH) 2> /dev/null || true
+	@$(CC) -I$(INC_PATH) -o $@ -c $<
 
-clean : libclean
+clean: cleanlib
+	@echo "\033[33mRemoval of .o files of $(NAME) ...\033[0m"
 	@rm -f $(OBJ)
+	@rmdir $(OBJ_PATH) 2> /dev/null || true
+	@echo "\033[31mFiles .o deleted\n\033[0m"
 
-libclean:
+cleanlib:
 	@make clean -C ./libft/
 
-fclean: clean flibclean
+fclean: clean fcleanlib
+	@echo "\033[33mRemoval of $(NAME)...\033[0m"
 	@rm -f $(NAME)
+	@echo "\033[31mBinary $(NAME) deleted\n\033[0m"
 
-flibclean:
-	@make fclean -C ./libft
+fcleanlib:
+	@make fclean -C ./libft/
 
-re : clean all
+re : fclean all

@@ -38,10 +38,20 @@ int		is_valid_move(t_map *map, t_piece *piece, int x, int y)
 		return (-1);
 	if (piece->x_len + x > map->y_len)
 		return (-1);
-	i = y;
-	j = x;
-	while (i < )
-
+	i = 0;
+	while (i < piece->y_len)
+	{
+		j = 0;
+		while (j < piece->x_len)
+		{
+			if (map->matrix[i + y][j + x] == c && piece->shape[i][j] == c)
+				match_count++;
+			j++;
+		}
+		i++;
+	}
+	if (match_count != 1)
+		return (-1);
 	return (0);
 }
 /*
@@ -64,7 +74,7 @@ t_list	*gen_moves(t_map *map, t_piece *piece)
 
 	i = piece->y_len - 1;
 	head = NULL;
-	while (i + piece->y_len -1 < map->y_len)
+	while (i < map->y_len)
 	{
 		j = 0;
 		while (j + piece->x_len -1 < map->x_len)
