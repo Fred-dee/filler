@@ -11,15 +11,16 @@
 /* ************************************************************************** */
 
 #include "../includes/filler.h"
+#include <stdio.h>
 
-int		get_player_no(const char *s, t_map *map)
+int		get_player_no(const char *s, t_map *map, const int fd)
 {
 	int		read_ret;
 	char	*str;
 	char	*tmp;
 
 	tmp = NULL;
-	while ((read_ret = get_next_line(0, &str)) > 0 && tmp == NULL)
+	while ((read_ret = get_next_line(fd, &str)) > 0 && tmp == NULL)
 	{
 		tmp = ft_strnstr(str, s, ft_strlen(str));
 		if (tmp != NULL)
@@ -28,11 +29,13 @@ int		get_player_no(const char *s, t_map *map)
 			{
 				map->player_no = 1;
 				map->pc = 'o';
+				map->oc = 'x';
 			}
 			else
 			{
 				map->player_no = 2;
 				map->pc = 'x';
+				map->oc = 'o';
 			}
 			break;
 		}
@@ -53,28 +56,30 @@ void	free_map(t_map *map)
 	map->matrix = NULL;
 }
 
-int		get_map(t_map *map)
+int		get_map(t_map *map, const int fd)
 {
 	int 	read_ret;
 	char	*str;
 	int		i;
 	char	*tmp;
 
-	read_ret = get_next_line(0, &str);
-	if (read_ret < 0)
+	if((read_ret = get_next_line(fd, &str)) < 0)
 		return (-1);
 	i = 0;
+	if ((tmp = ft_strnstr(str, "Plateau", ft_strlen(str))) != NULL)
+		read_ret = get_next_line(fd, &str);
 	while (read_ret > 0 && i < map->y_len)
 	{
-		if((read_ret = get_next_line(0, &str)) == -1)
+		if((read_ret = get_next_line(fd, &str)) == -1)
 			return (-1);
 		tmp = ft_strchr(str, ' ');
+		tmp = tmp + 1;
 		ft_strcpy(map->matrix[i++], tmp);
 	}
 	return (0);
 }
 
-int		init_map(t_map *map)
+int		init_map(t_map *map,const int fd)
 {
 	int		read_ret;
 	char	*str;
@@ -82,9 +87,9 @@ int		init_map(t_map *map)
 	int		i;
 	char	*tmp;
 
-	if ((get_player_no("mdilapi.filler", map)) == -1)
+	if ((get_player_no("mdilapi.filler", map, fd)) == -1)
 		return (-1);
-	while((read_ret = get_next_line(0, &str)) > 0)
+	while((read_ret = get_next_line(fd, &str)) > 0)
 	{
 		tmp = ft_strnstr(str, "Plateau", ft_strlen(str));
 		if (tmp != NULL)
@@ -99,6 +104,7 @@ int		init_map(t_map *map)
 		while(i < map->y_len)
 			map->matrix[i++] = ft_strnew(map->x_len);
 	}
+	// free the split array
 	else
 		return (-1);
 	return (0);

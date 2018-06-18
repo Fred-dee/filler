@@ -44,8 +44,10 @@ int		is_valid_move(t_map *map, t_piece *piece, int x, int y)
 		j = 0;
 		while (j < piece->x_len)
 		{
-			if (map->matrix[i + y][j + x] == c && piece->shape[i][j] == c)
+			if (ft_tolower(map->matrix[i + y][j + x]) == c && piece->shape[i][j] == '*')
 				match_count++;
+			if(ft_tolower(map->matrix[i + y][j + x]) == map->oc && piece->shape[i][j] == '*')
+				return (-1);
 			j++;
 		}
 		i++;
@@ -86,6 +88,7 @@ t_list	*gen_moves(t_map *map, t_piece *piece)
 					head = ft_lstnew(val_mov, sizeof(val_mov));
 				else
 					ft_lstaddback(&head, ft_lstnew(val_mov, sizeof(val_mov)));
+				free (val_mov);
 			}
 			j++;
 		}

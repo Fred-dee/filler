@@ -12,14 +12,14 @@
 
 #include "../includes/filler.h"
 
-int			get_piece(t_piece *p)
+int			get_piece(t_piece *p, const int fd)
 {
 	char	*tmp;
 	int		read_ret;
 	char	*str;
 	int		i;
 
-	while ((read_ret = get_next_line(0, &str)) > 0)
+	while ((read_ret = get_next_line(fd, &str)) > 0)
 	{
 		tmp = ft_strnstr(str, "Piece", ft_strlen(str));
 		if (tmp != NULL)
@@ -36,7 +36,7 @@ int			get_piece(t_piece *p)
 	i = 0;
 	while(i < p->y_len && read_ret > 0)
 	{
-		read_ret = get_next_line(0, &str);
+		read_ret = get_next_line(fd, &str);
 		p->shape[i] = ft_strnew(p->x_len);
 		ft_strcpy(p->shape[i++], str);
 	}

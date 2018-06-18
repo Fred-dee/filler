@@ -25,6 +25,7 @@ typedef struct	s_map
 	int 		x_len;
 	int			player_no;
 	char		pc;
+	char		oc;
 	char		**matrix;
 }				t_map;
 
@@ -41,10 +42,10 @@ typedef	struct	s_move
 	int			y;
 }				t_move;
 
-int				get_map(t_map *map);
-int				init_map(t_map *map);
+int				get_map(t_map *map, const int fd);
+int				init_map(t_map *map, const int fd);
 void			free_map(t_map *map);
-int				get_piece(t_piece *p);
+int				get_piece(t_piece *p, const int fd);
 t_list			*gen_moves(t_map *map, t_piece *piece);
 void			apply_heuristic(t_list *lst, t_map *map, t_piece *piece);
 #endif
