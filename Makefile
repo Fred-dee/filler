@@ -17,6 +17,7 @@ SRC_NAME =	main.c			\
 			map.c		\
 			piece.c	\
 			play.c	\
+			heuristic.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 

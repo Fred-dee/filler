@@ -31,7 +31,7 @@ int		get_player_no(const char *s, t_map *map, const int fd)
 				map->pc = 'o';
 				map->oc = 'x';
 			}
-			else
+			else if ((tmp = ft_strnstr(str, "p2", ft_strlen(str))) != NULL)
 			{
 				map->player_no = 2;
 				map->pc = 'x';

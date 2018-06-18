@@ -11,6 +11,41 @@
 /* ************************************************************************** */
 
 #include "../includes/filler.h"
+/*
+int			trim_piece(t_piece *piece)
+{
+	int		y_len;
+	int 	x_len;
+	int		i;
+	int		j;
+	char	**new_shape;
+
+	y_len = 1;
+	x_len = 1;
+	i = 0;
+	j = 0;
+
+	while(i < piece->y_len)
+		if(ft_strchr(piece->shape[i++], '*') != NULL)
+			y_len++;
+	if((new_shape = (char **)malloc(sizeof(char *)* y_len)) == NULL)
+		return (-1);
+	i = 0;
+	while (i < piece->y_len)
+	{
+		if(ft_strchr(piece->shape[i], '*') != NULL)
+		{
+			new_shape[j] = ft_strnew(piece->x_len);
+			ft_strcpy(new_shape[j++], piece->shape[i]);
+		}
+		free(piece->shape[i]);
+		i++;
+	}
+	free (piece->shape);
+	piece->shape = new_shape;
+	piece->y_len = y_len;
+	return (0);
+} */
 
 int			get_piece(t_piece *p, const int fd)
 {
@@ -40,5 +75,6 @@ int			get_piece(t_piece *p, const int fd)
 		p->shape[i] = ft_strnew(p->x_len);
 		ft_strcpy(p->shape[i++], str);
 	}
+	//trim_piece(p);
 	return (0);
 }

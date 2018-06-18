@@ -56,16 +56,7 @@ int		is_valid_move(t_map *map, t_piece *piece, int x, int y)
 		return (-1);
 	return (0);
 }
-/*
-appl_heuristic takes the list of generated moves
-assigns the content_size the value of the heuristic
-*/
-void	apply_heuristic(t_list *lst, t_map *map, t_piece *piece)
-{
-	(void) lst;
-	(void) map;
-	(void) piece;
-}
+
 
 t_list	*gen_moves(t_map *map, t_piece *piece)
 {

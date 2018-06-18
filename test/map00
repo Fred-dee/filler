@@ -1,4 +1,4 @@
-$$$ exec p1 : [./players/mdilapi.filler]
+$$$ exec p2 : [./players/mdilapi.filler]
 Plateau 15 17:
     01234567890123456
 000 .................

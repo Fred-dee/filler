@@ -37,7 +37,6 @@ int main(void)
 	get_map(map, fd);
 	get_piece(piece, fd);
 	moves = gen_moves(map, piece);
-
 	while (i < map->y_len)
 		printf("%s\n",map->matrix[i++]);
 	i = 0;
