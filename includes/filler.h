@@ -47,5 +47,5 @@ int				init_map(t_map *map, const int fd);
 void			free_map(t_map *map);
 int				get_piece(t_piece *p, const int fd);
 t_list			*gen_moves(t_map *map, t_piece *piece);
-void			apply_heuristic(t_list *lst, t_map *map, t_piece *piece);
+void			apply_heuristic(t_list **lst, t_map *map, t_piece *piece);
 #endif

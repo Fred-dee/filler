@@ -46,9 +46,11 @@ int main(void)
 	{
 		while (moves != NULL)
 		{
-			apply_heuristic(moves, map, piece);
-			ft_lstquicksort(&moves);
 			fin = (t_move *)moves->content;
+			printf("this is in main. move has y: %d\n", fin->y);
+			apply_heuristic(&moves, map, piece);
+			ft_lstquicksort(&moves);
+			
 			ft_putnbr_fd(fin->y, 1);
 			ft_putchar_fd(' ', 1);
 			ft_putnbr_fd(fin->x, 1);

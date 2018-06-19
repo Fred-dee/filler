@@ -36,7 +36,7 @@ int		main(void)
 		moves = gen_moves(map, piece);
 		if (moves != NULL)
 		{
-			//apply_heuristic(moves, map, piece);
+			apply_heuristic(&moves, map, piece);
 			ft_lstquicksort(&moves);
 			fin = (t_move *)moves->content;
 			ft_putnbr_fd(fin->y, 1);

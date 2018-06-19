@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../includes/filler.h"
-#include <stdio.h>
 
 int		get_player_no(const char *s, t_map *map, const int fd)
 {

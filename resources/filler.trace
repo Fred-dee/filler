@@ -1,4 +1,5 @@
-seed = 351
+seed = 8789
+./players/mdilapi.filler: Segfault at 2
 ./players/abanlin.filler won
 Score:
-37AGAINST304
+135AGAINST2
