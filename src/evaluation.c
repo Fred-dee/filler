@@ -67,3 +67,59 @@ size_t	eval_board_left(char **b, char pc, int y_len)
 	}
 	return(ret);
 }
+
+size_t eval_board_up(char **b, char pc, int y_len, int x_len)
+{
+	int		i;
+	int		j;
+	size_t	ret;
+
+	ret = 0;
+	j = 0;
+	while (j < x_len)
+	{
+		i = 0;
+		while (i < y_len && b[i][j] != pc)
+			i++;
+		if (i < y_len)
+			if (b[i][j] == pc)
+			{
+				i--;
+				while (i > -1 && b[i][j] == '.')
+				{
+					ret++;
+					i--;
+				}
+			}
+		j++;
+	}
+	return (ret);
+}
+
+size_t eval_board_down(char **b, char pc, int y_len, int x_len)
+{
+	int		i;
+	int		j;
+	size_t	ret;
+
+	ret = 0;
+	j = 0;
+	while (j < x_len)
+	{
+		i = y_len - 1;
+		while (i > -1 && b[i][j] != pc)
+			i--;
+		if (i  > -1)
+			if (b[i][j] == pc)
+			{
+				i++;
+				while (i < y_len && b[i][j] == '.')
+				{
+					ret++;
+					i++;
+				}
+			}
+		j++;
+	}
+	return (ret);
+}

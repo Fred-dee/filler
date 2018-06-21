@@ -50,4 +50,6 @@ t_list			*gen_moves(t_map *map, t_piece *piece);
 void			apply_heuristic(t_list **lst, t_map *map, t_piece *piece);
 size_t			eval_board_right(char **b, char pc, int y_len);
 size_t			eval_board_left(char **b, char pc, int y_len);
+size_t			eval_board_up(char **b, char pc, int y_len, int x_len);
+size_t			eval_board_down(char **b, char pc, int y_len, int x_len);
 #endif

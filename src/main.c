@@ -43,7 +43,6 @@ int		main(void)
 			ft_putchar_fd(' ', 1);
 			ft_putnbr_fd(fin->x, 1);
 			ft_putchar_fd('\n', 1);
-			//moves = NULL; // need to use a lstdel that means you need to code a del function
 		}
 		else
 		{
