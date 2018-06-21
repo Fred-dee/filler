@@ -22,10 +22,7 @@ int main(void)
 	t_list	*moves;
 	t_move	*fin;
 	int fd;
-	char *str;
-	int read_ret;
 	int i = 0;
-	int j = 0;
 
 	ptr = fopen("map00", "r");
 	fd = fileno(ptr);
@@ -44,13 +41,12 @@ int main(void)
 		printf("%s\n",piece->shape[i++]);
 	if (moves != NULL)
 	{
+		apply_heuristic(&moves, map, piece);
+		ft_lstquicksort(&moves);
 		while (moves != NULL)
 		{
 			fin = (t_move *)moves->content;
-			printf("this is in main. move has y: %d\n", fin->y);
-			apply_heuristic(&moves, map, piece);
-			ft_lstquicksort(&moves);
-			
+			//printf("this is in main. move has y: %d\n", fin->y);
 			ft_putnbr_fd(fin->y, 1);
 			ft_putchar_fd(' ', 1);
 			ft_putnbr_fd(fin->x, 1);

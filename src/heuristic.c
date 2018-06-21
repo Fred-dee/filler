@@ -38,53 +38,22 @@ void	place_piece(char **b, int mx, int my, t_map *map, t_piece *piece)
 	}
 }
 
-char	**copy_board(t_map *map)
+char	**copy_board(char  **map, int y_len)
 {
 	char	**ret;
 	int		i;
 
-	if((ret = (char **)malloc(sizeof(char) * map->y_len)) == NULL)
+	if((ret = (char **)malloc(sizeof(char) * y_len)) == NULL)
 		return (NULL);
 	i = 0;
-	while (i < map->y_len)
-	{
-		if((ret[i] = ft_strnew(map->x_len)) == NULL)
-			return (NULL);
-		ft_strcpy(ret[i], map->matrix[i]);
-		//printf("ret[%d] = %s\n", i, ret[i]);
-		i++;
-	}
-	return (ret);
-}
-
-size_t	eval_board(char **b, char pc, int y_len)
-{
-	char	*tmp;
-	int		i;
-	int		j;
-	size_t	ret;
-
-	i = 0;
-	ret = 0;
-	//printf("Player character is: %c\n", pc);
 	while (i < y_len)
 	{
-		j = 0;
-		tmp = ft_strrchr(b[i], pc);
-		if (tmp != NULL)
-		{
-			while (*tmp == '.' && *tmp != '\0')
-			{
-				j++;
-				tmp = tmp + 1;
-				printf("%c\n", *tmp);
-			}
-		}
-		ret += j;
+		ret[i] = ft_strdup(map[i]);
 		i++;
 	}
 	return (ret);
 }
+
 
 void	apply_heuristic(t_list **lst, t_map *map, t_piece *piece)
 {
@@ -92,22 +61,27 @@ void	apply_heuristic(t_list **lst, t_map *map, t_piece *piece)
 	t_list	*tmp;
 	size_t	init_eval;
 	t_move	*mv;
-
-	(void) lst;
-	(void) map;
-	(void) piece;
+	int		my;
+	int		mx;
 
 	tmp = *lst;
-	init_eval = eval_board(map->matrix, map->pc, map->y_len);
+	init_eval = (int) (eval_board_right(map->matrix, map->pc, map->y_len) * 0.6);
+	init_eval += (int) (eval_board_left(map->matrix, map->pc, map->y_len) * 0.4);
+		
+	board = (char **)malloc(sizeof(char *) * map->y_len);
+	mv = (t_move *)malloc(sizeof(t_move *));
 	while (tmp != NULL)
 	{
 		mv = (t_move *)tmp->content;
-		printf("%d\n",mv->x);
-		board = copy_board(map);
-		place_piece(board, mv->x, mv->y, map, piece);
-		tmp->content_size = eval_board(board, map->pc, map->y_len) + init_eval;
+		my = mv->y;
+		mx = mv->x;
+		board = copy_board(map->matrix, map->y_len);
+		place_piece(board, mx, my, map, piece);
+		tmp->content_size = (size_t)(
+				eval_board_right(board, map->pc, map->y_len) * 0.6) + init_eval;
+		tmp->content_size += (size_t)(eval_board_left(board, map->pc, map->y_len));
 		tmp = tmp->next;
 		free(board);
+		board = NULL;
 	}
-	//printf("Exiting apply_heuristic\n");
 }

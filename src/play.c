@@ -74,12 +74,12 @@ t_list	*gen_moves(t_map *map, t_piece *piece)
 		{
 			if (is_valid_move(map, piece, j, i) == 0)
 			{
-				//val_mov = new_move(j, i);
+				val_mov = new_move(j, i);
 				if (head == NULL)
-					head = ft_lstnew(new_move(j, i), sizeof(t_move *));
+					head = ft_lstnew(val_mov, sizeof(t_move *));
 				else
 					ft_lstaddback(&head, ft_lstnew(val_mov, sizeof(val_mov)));
-				//free (val_mov);
+				free (val_mov);
 			}
 			j++;
 		}

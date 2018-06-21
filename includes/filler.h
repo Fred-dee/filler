@@ -48,4 +48,6 @@ void			free_map(t_map *map);
 int				get_piece(t_piece *p, const int fd);
 t_list			*gen_moves(t_map *map, t_piece *piece);
 void			apply_heuristic(t_list **lst, t_map *map, t_piece *piece);
+size_t			eval_board_right(char **b, char pc, int y_len);
+size_t			eval_board_left(char **b, char pc, int y_len);
 #endif
