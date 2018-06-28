@@ -39,7 +39,7 @@ int		main(void)
 			apply_heuristic(&moves, map, piece);
 			ft_lstquicksort(&moves);
 			fin = (t_move *)moves->content;
-			ft_putnbr_fd(fin->y, 1);
+			ft_putnbr_fd(fin->y - piece->y_trim, 1);
 			ft_putchar_fd(' ', 1);
 			ft_putnbr_fd(fin->x, 1);
 			ft_putchar_fd('\n', 1);

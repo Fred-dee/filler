@@ -12,7 +12,7 @@
 
 #include "../includes/filler.h"
 
-/*
+
 int			trim_piece(t_piece *piece)
 {
 	int		y_len;
@@ -27,26 +27,29 @@ int			trim_piece(t_piece *piece)
 	j = 0;
 
 	while(i < piece->y_len)
-		if(ft_strchr(piece->shape[i++], '*') != NULL)
+		if(ft_strchr(piece->shape[i++], '*') == NULL)
 			y_len++;
-	if((new_shape = (char **)malloc(sizeof(char *)* y_len)) == NULL)
+	if(piece->y_len - y_len == 0)
+		return (0);
+	if((new_shape = (char **)malloc(sizeof(char *)* (piece->y_len - y_len))) == NULL)
 		return (-1);
 	i = 0;
 	while (i < piece->y_len)
 	{
 		if(ft_strchr(piece->shape[i], '*') != NULL)
 		{
-			new_shape[j] = ft_strnew(piece->x_len);
-			ft_strcpy(new_shape[j++], piece->shape[i]);
+			new_shape[j++] = ft_strdup(piece->shape[i]);
+			//ft_strcpy(new_shape[j++], piece->shape[i]);
 		}
 		free(piece->shape[i]);
 		i++;
 	}
 	free (piece->shape);
 	piece->shape = new_shape;
-	piece->y_len = y_len;
+	piece->y_len = piece->y_len - y_len;
+	piece->y_trim = y_len;
 	return (0);
-} */
+}
 
 int			get_piece(t_piece *p, const int fd)
 {
@@ -76,6 +79,8 @@ int			get_piece(t_piece *p, const int fd)
 		p->shape[i] = ft_strnew(p->x_len);
 		ft_strcpy(p->shape[i++], str);
 	}
-	//trim_piece(p);
+	p->x_trim = 0;
+	p->y_trim = 0;
+	trim_piece(p);
 	return (0);
 }
