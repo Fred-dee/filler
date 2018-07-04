@@ -70,7 +70,7 @@ t_list	*gen_moves(t_map *map, t_piece *piece)
 	while (i < map->y_len)
 	{
 		j = 0;
-		while (j + piece->x_len -1 < map->x_len)
+		while (j + piece->x_len - piece->x_trim -1 < map->x_len)
 		{
 			if (is_valid_move(map, piece, j, i) == 0)
 			{

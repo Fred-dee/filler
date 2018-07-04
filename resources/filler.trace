@@ -1,5 +1,5 @@
-seed = 2429
-./players/mdilapi.filler: Segfault at 2
+seed = 6827
+./players/mdilapi.filler: Segfault at 4
 ./players/rhohls.filler won
 Score:
-2AGAINST161
+4AGAINST149

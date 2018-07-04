@@ -11,12 +11,43 @@
 /* ************************************************************************** */
 
 #include "../includes/filler.h"
+#include <stdio.h>
 
-/*
+
 int			trim_piece(t_piece *p)
 {
 	int		i;
-} */
+	int		j;
+	int		flag;
+
+	i = 0;
+	while(i < p->y_len)
+	{
+		if (ft_strchr(p->shape[i], '*') != NULL)
+			break;
+		i++;
+	}
+	//printf("the trim_piece value of i is: %d\n", i);
+	p->y_trim = i;
+	i = 0;
+	flag = 0;
+	while(i < p->x_len)
+	{
+		j = 0;
+		while (j < p->y_len)
+		{
+			if(p->shape[j][i] == '*')
+				flag = 1;
+			j++;
+		}
+		if (flag == 1)
+			break;
+		i++;
+	}
+	p->x_trim = i;
+	//printf("x_tring value is: %d\n", p->x_trim);
+	return (1);
+}
 
 int			get_piece(t_piece *p, const int fd)
 {
@@ -48,6 +79,6 @@ int			get_piece(t_piece *p, const int fd)
 	}
 	p->x_trim = 0;
 	p->y_trim = 0;
-	//trim_piece(p);
+	trim_piece(p);
 	return (0);
 }
