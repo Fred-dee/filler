@@ -46,6 +46,7 @@ int main(void)
 		while (moves != NULL)
 		{
 			fin = (t_move *)moves->content;
+			//printf("piece y_trim: %d, piece x_trim :%d\n",piece->y_trim, piece->x_trim);
 			//printf("this is in main. move has y: %d\n", fin->y);
 			ft_putnbr_fd(fin->y, 1);
 			ft_putchar_fd(' ', 1);
