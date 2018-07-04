@@ -34,19 +34,19 @@ int		is_valid_move(t_map *map, t_piece *piece, int x, int y)
 
 	c = map->pc;
 	match_count = 0;
-	if (piece->y_len + y > map->y_len)
+	if (piece->y_len - piece->y_trim + y > map->y_len)
 		return (-1);
-	if (piece->x_len + x > map->y_len)
+	if (piece->x_len - piece->x_trim + x > map->y_len)
 		return (-1);
 	i = 0;
-	while (i < piece->y_len)
+	while (i < piece->y_len - piece->y_trim)
 	{
 		j = 0;
-		while (j < piece->x_len)
+		while (j < piece->x_len - piece->x_trim)
 		{
-			if (ft_tolower(map->matrix[i + y][j + x]) == c && piece->shape[i][j] == '*')
+			if (ft_tolower(map->matrix[i + y][j + x]) == c && piece->shape[i + piece->y_trim][j + piece->x_trim] == '*')
 				match_count++;
-			if(ft_tolower(map->matrix[i + y][j + x]) == map->oc && piece->shape[i][j] == '*')
+			if(ft_tolower(map->matrix[i + y][j + x]) == map->oc && piece->shape[i + piece->y_trim][j + piece->x_trim] == '*')
 				return (-1);
 			j++;
 		}

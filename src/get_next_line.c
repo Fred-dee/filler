@@ -28,14 +28,17 @@ static int	index_of(const char *s, const char c)
 	int i;
 
 	i = 0;
-	while (s[i] != '\0')
+	if (s != NULL)
 	{
+		while (s[i] != '\0')
+		{
+			if (s[i] == c)
+				return (i);
+			i++;
+		}
 		if (s[i] == c)
 			return (i);
-		i++;
 	}
-	if (s[i] == c)
-		return (i);
 	return (-1);
 }
 
@@ -51,7 +54,7 @@ static void	work(char **ret_line, char **buffer, int nl)
 	tmp[BUFF_SIZE - nl] = '\0';
 	ft_memmove(*buffer, tmp, ft_strlen(tmp) + 1);
 	if (buffer[0][0] == '\0')
-		ft_strclr(*buffer);
+		ft_bzero(*buffer, (size_t)(BUFF_SIZE + 1));
 	free(tmp);
 }
 
@@ -70,8 +73,9 @@ static int	gnl(const int fd, char **ret_line, char **buffer)
 		else
 		{
 			swapnfree(ret_line, ft_strjoin(*ret_line, *buffer));
-			ft_strclr(*buffer);
-			read_ret = read(fd, *buffer, BUFF_SIZE);
+			ft_bzero(*buffer, (size_t)(BUFF_SIZE + 1));
+			if ((read_ret = read(fd, *buffer, BUFF_SIZE)) < 0)
+				return (-1);
 			buffer[0][read_ret] = '\0';
 		}
 	}
@@ -80,27 +84,29 @@ static int	gnl(const int fd, char **ret_line, char **buffer)
 
 int			get_next_line(const int fd, char **line)
 {
-	static char	*buffer[100];
-	char		*ret_line;
+	static char	*buffer[MI];
 	int			read_ret;
 
-	if (line == NULL || fd < 0)
+	if (fd < 0 || !line || BUFF_SIZE < 0 || read(fd, buffer[fd], 0) < 0)
 		return (-1);
 	if (buffer[fd] == NULL)
 		buffer[fd] = ft_strnew(BUFF_SIZE + 1);
-	ret_line = ft_strnew(BUFF_SIZE + 1);
-	ft_strclr(ret_line);
+	if ((*line = ft_strnew(BUFF_SIZE + 1)) == NULL)
+		return (-1);
 	if (ft_isempty(buffer[fd]))
 	{
-		if ((read_ret = read(fd, buffer[fd], BUFF_SIZE)) < 0)
-			return (-1);
+		if ((read_ret = read(fd, buffer[fd], BUFF_SIZE)) <= 0)
+			return (read_ret);
 		buffer[fd][read_ret] = '\0';
 	}
-	read_ret = gnl(fd, &ret_line, &buffer[fd]);
+	read_ret = gnl(fd, line, &buffer[fd]);
 	if (read_ret < 0)
 		return (-1);
-	if (ft_isempty(ret_line) && read_ret == 0)
+	if (ft_isempty(*line) && read_ret == 0)
+	{
+		free(buffer[fd]);
+		buffer[fd] = NULL;
 		return (0);
-	*line = ret_line;
+	}
 	return (1);
 }

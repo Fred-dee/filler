@@ -13,7 +13,9 @@
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 # define BUFF_SIZE 32
-# include "../libft/libft.h"
+# define MIN_INT (-MI - 1)
+# define MI 2147483647
+# include "./libft.h"
 
 int	get_next_line(const int fd, char **line);
 #endif

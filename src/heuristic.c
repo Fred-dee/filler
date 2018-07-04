@@ -65,10 +65,10 @@ void	apply_heuristic(t_list **lst, t_map *map, t_piece *piece)
 	int		mx;
 
 	tmp = *lst;
-	init_eval = (int) (eval_board_right(map->matrix, map->pc, map->y_len) * 0.4);
-	init_eval += (int) (eval_board_left(map->matrix, map->pc, map->y_len) * 0.1);
-	init_eval += (int) (eval_board_up(map->matrix, map->pc, map->y_len, map->x_len) * 0.3);
-	init_eval += (int) (eval_board_down(map->matrix, map->pc, map->y_len, map->x_len) * 0.2);
+	init_eval = (int) (eval_board_right(map->matrix, map->pc, map->y_len) * 0.45);
+	init_eval += (int) (eval_board_left(map->matrix, map->pc, map->y_len) * 0.10);
+	init_eval += (int) (eval_board_up(map->matrix, map->pc, map->y_len, map->x_len) * 0.23);
+	init_eval += (int) (eval_board_down(map->matrix, map->pc, map->y_len, map->x_len) * 0.22);
 	board = (char **)malloc(sizeof(char *) * map->y_len);
 	mv = (t_move *)malloc(sizeof(t_move *));
 	while (tmp != NULL)

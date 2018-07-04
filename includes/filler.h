@@ -33,6 +33,8 @@ typedef struct s_piece
 {
 	int			y_len;
 	int			x_len;
+	int			y_trim;
+	int			x_trim;
 	char		**shape;
 }				t_piece;
 
