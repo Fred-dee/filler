@@ -38,6 +38,7 @@ int		get_player_no(const char *s, t_map *map, const int fd)
 			}
 			break;
 		}
+		free(str);
 	}
 	if (read_ret == -1 || tmp == NULL)
 		return (-1);
@@ -93,7 +94,8 @@ int		init_map(t_map *map,const int fd)
 	while((read_ret = get_next_line(fd, &str)) > 0)
 		if((tmp = ft_strnstr(str, "Plateau", ft_strlen(str))) != NULL)
 			break;
-	split = ft_strsplit(str, ' ');
+	if((split = ft_strsplit(str, ' ')) == NULL)
+		return (-1);
 	map->y_len = ft_atoi(split[1]);
 	map->x_len = ft_atoi(split[2]);
 	free_arr(split, 3);
@@ -101,7 +103,8 @@ int		init_map(t_map *map,const int fd)
 	{
 		i = 0;
 		while(i < map->y_len)
-			map->matrix[i++] = ft_strnew(map->x_len);
+			if((map->matrix[i++] = ft_strnew(map->x_len)) == NULL)
+				return (-1);
 	}
 	else
 		return (-1);
