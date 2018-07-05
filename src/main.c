@@ -12,17 +12,22 @@
 
 #include "../includes/filler.h"
 
-static void	play_move(t_list *moves, t_map *map, t_piece *piece)
+static int	play_move(t_list *moves, t_map *map, t_piece *piece)
 {
 	t_move	*fin;
 
-	apply_heuristic(&moves, map, piece);
+	if(apply_heuristic(&moves, map, piece) == -1)
+		return (-1);
 	ft_lstquicksort(&moves);
 	fin = (t_move *)moves->content;
-	ft_putnbr_fd(fin->y, 1);
-	ft_putchar_fd(' ', 1);
-	ft_putnbr_fd(fin->x, 1);
-	ft_putchar_fd('\n', 1);
+	if(fin != NULL)
+	{ 
+		ft_putnbr_fd(fin->y, 1);
+		ft_putchar_fd(' ', 1);
+		ft_putnbr_fd(fin->x, 1);
+		ft_putchar_fd('\n', 1);
+	}
+	return (0);
 }
 
 static int	initialize(t_map **map, t_piece **piece)
@@ -54,13 +59,16 @@ int			main(void)
 			perror("Couldnt get piece");
 		moves = gen_moves(map, piece);
 		if (moves != NULL)
-			play_move(moves, map, piece);
+		{
+			if(play_move(moves, map, piece) == -1)
+				perror("Error trying to play move");
+		}
 		else
 		{
 			ft_putstr_fd("0 0\n", 1);
 			exit(1);
 		}
 	}
-	free_map(map);
+	free_arr(map->matrix, map->y_len);
 	return (0);
 }

@@ -46,10 +46,10 @@ typedef	struct	s_move
 
 int				get_map(t_map *map, const int fd);
 int				init_map(t_map *map, const int fd);
-void			free_map(t_map *map);
+void			free_arr(char **arr, int len);
 int				get_piece(t_piece *p, const int fd);
 t_list			*gen_moves(t_map *map, t_piece *piece);
-void			apply_heuristic(t_list **lst, t_map *map, t_piece *piece);
+int				apply_heuristic(t_list **lst, t_map *map, t_piece *piece);
 size_t			eval_board_right(char **b, char pc, int y_len);
 size_t			eval_board_left(char **b, char pc, int y_len);
 size_t			eval_board_up(char **b, char pc, int y_len, int x_len);

@@ -44,15 +44,16 @@ int		get_player_no(const char *s, t_map *map, const int fd)
 	return (0);
 }
 
-void	free_map(t_map *map)
+void	free_arr(char **arr, int len)
 {
 	int i;
 
 	i = 0;
-	while (i < map->y_len)
-		free(map->matrix[i++]);
-	free(map->matrix);
-	map->matrix = NULL;
+	if(arr != NULL)
+		while(i < len)
+			free(arr[i++]);
+	free(arr);
+	arr = NULL;
 }
 
 int		get_map(t_map *map, const int fd)
@@ -74,6 +75,7 @@ int		get_map(t_map *map, const int fd)
 		tmp = ft_strchr(str, ' ');
 		tmp = tmp + 1;
 		ft_strcpy(map->matrix[i++], tmp);
+		free(str);
 	}
 	return (0);
 }
@@ -89,21 +91,18 @@ int		init_map(t_map *map,const int fd)
 	if ((get_player_no("mdilapi.filler", map, fd)) == -1)
 		return (-1);
 	while((read_ret = get_next_line(fd, &str)) > 0)
-	{
-		tmp = ft_strnstr(str, "Plateau", ft_strlen(str));
-		if (tmp != NULL)
+		if((tmp = ft_strnstr(str, "Plateau", ft_strlen(str))) != NULL)
 			break;
-	}
 	split = ft_strsplit(str, ' ');
 	map->y_len = ft_atoi(split[1]);
 	map->x_len = ft_atoi(split[2]);
+	free_arr(split, 3);
 	if((map->matrix = (char **)malloc(sizeof(char *) * map->y_len)))
 	{
 		i = 0;
 		while(i < map->y_len)
 			map->matrix[i++] = ft_strnew(map->x_len);
 	}
-	// free the split array
 	else
 		return (-1);
 	return (0);

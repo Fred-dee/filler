@@ -48,14 +48,15 @@ char	**copy_board(char  **map, int y_len)
 	i = 0;
 	while (i < y_len)
 	{
-		ret[i] = ft_strdup(map[i]);
+		if((ret[i] = ft_strdup(map[i])) == NULL)
+			return (NULL);
 		i++;
 	}
 	return (ret);
 }
 
 
-void	apply_heuristic(t_list **lst, t_map *map, t_piece *piece)
+int	apply_heuristic(t_list **lst, t_map *map, t_piece *piece)
 {
 	char	**board;
 	t_list	*tmp;
@@ -65,12 +66,14 @@ void	apply_heuristic(t_list **lst, t_map *map, t_piece *piece)
 	int		mx;
 
 	tmp = *lst;
-	init_eval = (int) (eval_board_right(map->matrix, map->pc, map->y_len) * 0.45);
-	init_eval += (int) (eval_board_left(map->matrix, map->pc, map->y_len) * 0.10);
-	init_eval += (int) (eval_board_up(map->matrix, map->pc, map->y_len, map->x_len) * 0.23);
-	init_eval += (int) (eval_board_down(map->matrix, map->pc, map->y_len, map->x_len) * 0.22);
-	board = (char **)malloc(sizeof(char *) * map->y_len);
-	mv = (t_move *)malloc(sizeof(t_move *));
+	init_eval = (int) (eval_board_right(map->matrix, map->pc, map->y_len) * 0.20);
+	init_eval += (int) (eval_board_left(map->matrix, map->pc, map->y_len) * 0.20);
+	init_eval += (int) (eval_board_up(map->matrix, map->pc, map->y_len, map->x_len) * 0.20);
+	init_eval += (int) (eval_board_down(map->matrix, map->pc, map->y_len, map->x_len) * 0.20);
+	if((board = (char **)malloc(sizeof(char *) * map->y_len)) == NULL)
+		return (-1);
+	if((mv = (t_move *)malloc(sizeof(t_move *))) == NULL)
+		return (-1);
 	while (tmp != NULL)
 	{
 		mv = (t_move *)tmp->content;
@@ -81,14 +84,20 @@ void	apply_heuristic(t_list **lst, t_map *map, t_piece *piece)
 		{
 			place_piece(board, mx, my, map, piece);
 			tmp->content_size = (size_t)(
-					eval_board_right(board, map->pc, map->y_len) * 0.3) + init_eval;
-			tmp->content_size += (size_t)(eval_board_left(board, map->pc, map->y_len) * 0.3);
+					eval_board_right(board, map->pc, map->y_len) * 0.20) + init_eval;
+			tmp->content_size += (size_t)(eval_board_left(board, map->pc, map->y_len) * 0.20);
 			tmp->content_size += (size_t)(eval_board_up(board, map->pc, map->y_len, map->x_len) * 0.2);
 			tmp->content_size += (size_t)(eval_board_down(board, map->pc, map->y_len, map->x_len) * 0.2);
 			tmp = tmp->next;
 			free(board);
 		}
+		else
+		{	
+			perror("Was unable to copy the board");
+			return (-1);
+		}
 		board = NULL;
 	}
 	free(mv);
+	return (0);
 }
