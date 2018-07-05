@@ -20,7 +20,7 @@ SRC_NAME =	main.c			\
 			heuristic.c \
 			evaluation.c
 
-OBJ_NAME = $(SRC_NAME:.c=.o)
+OBJ_NAME = $(SRC_NAME:%.c=%.o)
 
 # Files
 
