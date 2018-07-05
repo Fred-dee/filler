@@ -13,7 +13,7 @@
 #include "../includes/filler.h"
 #include <stdio.h>
 
-
+/*
 int			trim_piece(t_piece *p)
 {
 	int		i;
@@ -47,7 +47,7 @@ int			trim_piece(t_piece *p)
 	p->x_trim = i;
 	//printf("x_tring value is: %d\n", p->x_trim);
 	return (1);
-}
+} */
 
 int			get_piece(t_piece *p, const int fd)
 {
@@ -79,6 +79,6 @@ int			get_piece(t_piece *p, const int fd)
 	}
 	p->x_trim = 0;
 	p->y_trim = 0;
-	trim_piece(p);
+//	trim_piece(p);
 	return (0);
 }

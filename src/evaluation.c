@@ -65,10 +65,10 @@ size_t	eval_board_left(char **b, char pc, int y_len)
 		ret += j;
 		i++;
 	}
-	return(ret);
+	return (ret);
 }
 
-size_t eval_board_up(char **b, char pc, int y_len, int x_len)
+size_t	eval_board_up(char **b, char pc, int y_len, int x_len)
 {
 	int		i;
 	int		j;
@@ -96,7 +96,7 @@ size_t eval_board_up(char **b, char pc, int y_len, int x_len)
 	return (ret);
 }
 
-size_t eval_board_down(char **b, char pc, int y_len, int x_len)
+size_t	eval_board_down(char **b, char pc, int y_len, int x_len)
 {
 	int		i;
 	int		j;
@@ -109,7 +109,7 @@ size_t eval_board_down(char **b, char pc, int y_len, int x_len)
 		i = y_len - 1;
 		while (i > -1 && b[i][j] != pc)
 			i--;
-		if (i  > -1)
+		if (i > -1)
 			if (b[i][j] == pc)
 			{
 				i++;
