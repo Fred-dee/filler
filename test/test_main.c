@@ -24,21 +24,33 @@ int main(void)
 	int fd;
 	int i = 0;
 
-	ptr = fopen("map00", "r");
+	ptr = fopen("map01", "r");
 	fd = fileno(ptr);
 	if((map = (t_map *)malloc(sizeof(t_map))) == NULL)
 		return (-1);
 	if((piece = (t_piece *)malloc(sizeof(t_piece))) == NULL)
 		return (-1);
-	init_map(map, fd);
-	get_map(map, fd);
-	get_piece(piece, fd);
-	moves = gen_moves(map, piece);
+	if(init_map(map, fd) == -1)
+		printf("Couldnt init the map\n");
+	if(get_map(map, fd) == -1)
+		printf("Couldnt get the map\n");
+	//while (i < map->y_len)
+	//{
+	//	printf("%d: %s\n",i, map->matrix[i]);
+	//	i++;
+	//}
+	if(get_piece(piece, fd) == -1)
+		printf("Couldnt get the piece\n");
+	i = 0;
 	while (i < map->y_len)
-		printf("%s\n",map->matrix[i++]);
+	{
+		printf("%d: %s\n",i, map->matrix[i]);
+		i++;
+	}
 	i = 0;
 	while (i < piece->y_len)
-		printf("%s\n",piece->shape[i++]);
+		printf("%s\n", piece->shape[i++]);
+	moves = gen_moves(map, piece);
 	if (moves != NULL)
 	{
 		apply_heuristic(&moves, map, piece);

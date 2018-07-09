@@ -1,4 +1,6 @@
-seed = 2609
+seed = 4619
+O: error on input
+./players/mdilapi.filler: Segfault at 1
 ./players/rhohls.filler won
 Score:
-8AGAINST167
+1AGAINST160

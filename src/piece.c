@@ -67,15 +67,16 @@ int			get_piece(t_piece *p, const int fd)
 			p->x_len = ft_atoi(tmp);
 			break;
 		}
+		free(str);
 	}
-	if ((p->shape = (char **)malloc(sizeof(char *))) == NULL)
+	if ((p->shape = (char **)malloc(sizeof(char *) * p->y_len)) == NULL)
 		return (-1);
 	i = 0;
-	while(i < p->y_len && read_ret > 0)
+	while(i < p->y_len && (read_ret = get_next_line(fd, &str)) > 0)
 	{
-		read_ret = get_next_line(fd, &str);
 		p->shape[i] = ft_strnew(p->x_len);
 		ft_strcpy(p->shape[i++], str);
+		free(str);
 	}
 	p->x_trim = 0;
 	p->y_trim = 0;

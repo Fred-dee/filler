@@ -54,9 +54,15 @@ int			main(void)
 	while (1)
 	{
 		if (get_map(map, 0) == -1)
+		{
 			perror("Couldnt get map");
+			exit (-1);
+		}
 		if (get_piece(piece, 0) == -1)
+		{
 			perror("Couldnt get piece");
+			exit (-1);
+		}
 		moves = gen_moves(map, piece);
 		if (moves != NULL)
 		{
