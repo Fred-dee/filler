@@ -13,12 +13,6 @@
 #include "../includes/filler.h"
 #include <stdio.h>
 
-/*
-** Thinking of possibly creating a text file that stores a weighting of stratgies
-** Say for instance I win more games by maximising teritory vs minimising opponent teritory
-** then the value of that heauristic will be heavier
-*/
-
 void	place_piece(char **b, int mx, int my, t_map *map, t_piece *piece)
 {
 	int	i;
@@ -49,7 +43,12 @@ char	**copy_board(char  **map, int y_len)
 	while (i < y_len)
 	{
 		if((ret[i] = ft_strdup(map[i])) == NULL)
+		{
+			i--;
+			while (i >= 0)
+				free(ret[i--]);
 			return (NULL);
+		}
 		i++;
 	}
 	return (ret);
@@ -89,7 +88,8 @@ int	apply_heuristic(t_list **lst, t_map *map, t_piece *piece)
 			tmp->content_size += (size_t)(eval_board_up(board, map->pc, map->y_len, map->x_len) * 0.2);
 			tmp->content_size += (size_t)(eval_board_down(board, map->pc, map->y_len, map->x_len) * 0.2);
 			tmp = tmp->next;
-			free(board);
+			free_arr(board, map->y_len);
+
 		}
 		else
 		{	

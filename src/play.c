@@ -12,7 +12,7 @@
 
 #include "../includes/filler.h"
 
-t_move	*new_move(int x, int y)
+static t_move	*new_move(int x, int y)
 {
 	t_move *ret;
 
@@ -25,7 +25,7 @@ t_move	*new_move(int x, int y)
 	return (ret);
 }
 
-int		is_valid_move(t_map *map, t_piece *piece, int x, int y)
+static int		is_valid_move(t_map *map, t_piece *piece, int x, int y)
 {
 	char	c;
 	int		match_count;
@@ -33,7 +33,6 @@ int		is_valid_move(t_map *map, t_piece *piece, int x, int y)
 	int		j;
 
 	c = map->pc;
-	printf("%c\n", c);
 	match_count = 0;
 	if (piece->y_len - piece->y_trim + y > map->y_len)
 		return (-1);
@@ -46,12 +45,21 @@ int		is_valid_move(t_map *map, t_piece *piece, int x, int y)
 		j = 0;
 		while (j < piece->x_len - piece->x_trim)
 		{
+			if(ft_tolower(map->matrix[i + y][j + x]) == c)
+			{
+				printf("found one of my own pieces %d %d\n",i + y, j + x);
+				printf("my shape at %d %d is: %c\n", i + piece->y_trim, j + piece->x_trim, piece->shape[i + piece->y_trim][j + piece->x_trim]);
+			}
 			if (ft_tolower(map->matrix[i + y][j + x]) == c && piece->shape[i + piece->y_trim][j + piece->x_trim] == '*')
+			{
+				printf("Foudnd a match\n");
 				match_count++;
-			if(ft_tolower(map->matrix[i + y][j + x]) == map->oc && piece->shape[i + piece->y_trim][j + piece->x_trim] == '*')
-				return (-1);
+			}
+			else if(ft_tolower(map->matrix[i + y][j + x]) == map->oc && piece->shape[i + piece->y_trim][j + piece->x_trim] == '*')
+				return (-1); // this is the case where it'd overlap
 			j++;
 		}
+		//printf("\n");
 		i++;
 	}
 	if (match_count != 1)
@@ -60,7 +68,7 @@ int		is_valid_move(t_map *map, t_piece *piece, int x, int y)
 }
 
 
-t_list	*gen_moves(t_map *map, t_piece *piece)
+t_list		*gen_moves(t_map *map, t_piece *piece)
 {
 	t_list *head;
 	t_move *val_mov;

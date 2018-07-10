@@ -12,7 +12,7 @@
 
 #include "../includes/filler.h"
 
-int		get_player_no(const char *s, t_map *map, const int fd)
+static int		get_player_no(const char *s, t_map *map, const int fd)
 {
 	int		read_ret;
 	char	*str;
@@ -51,10 +51,13 @@ void	free_arr(char **arr, int len)
 
 	i = 0;
 	if(arr != NULL)
-		while(i < len)
+	{
+		while(i < len && arr[i] != NULL)
 			free(arr[i++]);
-	free(arr);
-	arr = NULL;
+		free(arr);
+		arr = NULL;
+	}
+
 }
 
 int		get_map(t_map *map, const int fd)
@@ -67,10 +70,8 @@ int		get_map(t_map *map, const int fd)
 	if((read_ret = get_next_line(fd, &str)) < 0)
 		return (-1);
 	i = 0;
-	//printf("get_map %s\n", str);
 	if ((tmp = ft_strnstr(str, "Plateau", ft_strlen(str))) != NULL)
 		read_ret = get_next_line(fd, &str);
-	//printf("get_map2 %s\n", str);
 	while (read_ret > 0 && i < map->y_len)
 	{
 		if((read_ret = get_next_line(fd, &str)) == -1)
@@ -78,7 +79,6 @@ int		get_map(t_map *map, const int fd)
 		tmp = ft_strchr(str, ' ');
 		tmp = tmp + 1;
 		ft_strcpy(map->matrix[i++], tmp);
-	//	printf("get_map 3 %d: %s\n", i -1, map->matrix[i - 1]);
 		free(str);
 	}
 	return (0);
@@ -101,7 +101,6 @@ int		init_map(t_map *map, const int fd)
 		return (-1);
 	map->y_len = ft_atoi(split[1]);
 	map->x_len = ft_atoi(split[2]);
-	//printf("y_len: %d, x_len: %d\n", map->y_len, map->x_len);
 	free_arr(split, 3);
 	if((map->matrix = (char **)malloc(sizeof(char *) * map->y_len)))
 	{

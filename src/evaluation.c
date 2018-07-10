@@ -52,6 +52,7 @@ size_t	eval_board_left(char **b, char pc, int y_len)
 	while (i < y_len)
 	{
 		j = 0;
+		printf("i is: %d\n", i);
 		tmp = ft_strchr(b[i], pc);
 		if (tmp != NULL)
 		{

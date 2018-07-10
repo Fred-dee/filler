@@ -24,7 +24,7 @@ int main(void)
 	int fd;
 	int i = 0;
 
-	ptr = fopen("map01", "r");
+	ptr = fopen("map00", "r");
 	fd = fileno(ptr);
 	if((map = (t_map *)malloc(sizeof(t_map))) == NULL)
 		return (-1);
