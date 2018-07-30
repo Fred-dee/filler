@@ -14,7 +14,6 @@
 
 size_t	eval_board_right(char **b, char pc, int y_len)
 {
-	//char	*tmp;
 	int		i;
 	int		j;
 	int		move;

@@ -49,19 +49,20 @@ int	apply_heuristic(t_list **lst, t_map *map, t_piece *piece)
 {
 	char	**board;
 	t_list	*tmp;
-	size_t	init_eval;
+	//size_t	init_eval;
 	t_move	*mv;
 	int		my;
 	int		mx;
 	int		x;
 	double	weights[4];
+	double	init_eval[4];
 
 	if (ft_tolower(map->pc) == 'o')
 	{
-		weights[0] = 0.25;
+		weights[0] = 0.35;
 		weights[1] = 0.15;
-		weights[2] = 0.30;
-		weights[3] = 0.30;
+		weights[2] = 0.15;
+		weights[3] = 0.35;
 	}
 	else
 	{
@@ -71,10 +72,10 @@ int	apply_heuristic(t_list **lst, t_map *map, t_piece *piece)
 		weights[3] = 0.20;		
 	}
 	tmp = *lst;
-	init_eval = (int) (eval_board_right(map->matrix, map->pc, map->y_len) * weights[0]);
-	init_eval += (int) (eval_board_left(map->matrix, map->pc, map->y_len) * weights[1]);
-	init_eval += (int) (eval_board_up(map->matrix, map->pc, map->y_len, map->x_len) * weights[2]);
-	init_eval += (int) (eval_board_down(map->matrix, map->pc, map->y_len, map->x_len) * weights[3]);
+	init_eval[0] = (int) (eval_board_right(map->matrix, map->pc, map->y_len) * weights[0]);
+	init_eval[1] = (int) (eval_board_left(map->matrix, map->pc, map->y_len) * weights[1]);
+	init_eval[2] = (int) (eval_board_up(map->matrix, map->pc, map->y_len, map->x_len) * weights[2]);
+	init_eval[3] = (int) (eval_board_down(map->matrix, map->pc, map->y_len, map->x_len) * weights[3]);
 	if((board = (char **)malloc(sizeof(char *) * map->y_len)) == NULL)
 		return (-1);
 	x = 0;
@@ -93,10 +94,10 @@ int	apply_heuristic(t_list **lst, t_map *map, t_piece *piece)
 		{
 			place_piece(board, mx, my, map, piece);
 			tmp->content_size = (size_t)(
-					eval_board_right(board, map->pc, map->y_len) * weights[0]) + init_eval;
-			tmp->content_size += (size_t)(eval_board_left(board, map->pc, map->y_len) * weights[1]);
-			tmp->content_size += (size_t)(eval_board_up(board, map->pc, map->y_len, map->x_len) * weights[2]);
-			tmp->content_size += (size_t)(eval_board_down(board, map->pc, map->y_len, map->x_len) * weights[3]);
+					eval_board_right(board, map->pc, map->y_len) * weights[0]) + init_eval[0];
+			tmp->content_size += (size_t)(eval_board_left(board, map->pc, map->y_len) * weights[1]) + init_eval[1];
+			tmp->content_size += (size_t)(eval_board_up(board, map->pc, map->y_len, map->x_len) * weights[2]) + init_eval[2];
+			tmp->content_size += (size_t)(eval_board_down(board, map->pc, map->y_len, map->x_len) * weights[3]) + init_eval[3];
 			tmp = tmp->next;
 		}
 		else

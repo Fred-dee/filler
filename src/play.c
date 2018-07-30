@@ -55,10 +55,7 @@ static int		is_valid_move(t_map *map, t_piece *piece, int x, int y)
 		i++;
 	}
 	if (match_count != 1)
-	{
-		//printf("at x: %d, and y: %d, i found matches: %d\n",x, y, match_count);
 		return (-1);
-	}
 	return (0);
 }
 

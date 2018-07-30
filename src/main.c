@@ -15,14 +15,14 @@
 static int	play_move(t_list *moves, t_map *map, t_piece *piece)
 {
 	t_move	*fin;
+	t_list	*lst;
 
-	//(void) map;
-	//(void) piece;
-	if(apply_heuristic(&moves, map, piece) == -1)
+	if (apply_heuristic(&moves, map, piece) == -1)
 		return (-1);
 	ft_lstquicksort(&moves);
+	lst = ft_lstgettail(moves);
 	fin = (t_move *)moves->content;
-	if(fin != NULL)
+	if (fin != NULL)
 	{ 
 		ft_putnbr_fd(fin->y - piece->y_trim, 1);
 		ft_putchar_fd(' ', 1);
@@ -54,19 +54,11 @@ int			main(void)
 	if (initialize(&map, &piece) == -1)
 		return (-1);
 	while (1)
-	{
 		if (get_map(map, 0) == -1)
-		{
 			perror("Couldnt get map");
-			exit (-1);
-		}
-		if (get_piece(piece, 0) == -1)
-		{
+		else if (get_piece(piece, 0) == -1)
 			perror("Couldnt get piece");
-			exit (-1);
-		}
-		moves = gen_moves(map, piece);
-		if (moves != NULL)
+	 	else if ((moves = gen_moves(map, piece)) != NULL)
 		{
 			if(play_move(moves, map, piece) == -1)
 				perror("Error trying to play move");
@@ -76,7 +68,5 @@ int			main(void)
 			ft_putstr_fd("0 0\n", 1);
 			exit(1);
 		}
-	}
-	free_arr(map->matrix, map->y_len);
 	return (0);
 }
