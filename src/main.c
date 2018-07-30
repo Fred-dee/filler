@@ -24,9 +24,9 @@ static int	play_move(t_list *moves, t_map *map, t_piece *piece)
 	fin = (t_move *)moves->content;
 	if(fin != NULL)
 	{ 
-		ft_putnbr_fd(fin->y, 1);
+		ft_putnbr_fd(fin->y - piece->y_trim, 1);
 		ft_putchar_fd(' ', 1);
-		ft_putnbr_fd(fin->x, 1);
+		ft_putnbr_fd(fin->x - piece->x_trim, 1);
 		ft_putchar_fd('\n', 1);
 	}
 	return (0);

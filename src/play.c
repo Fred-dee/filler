@@ -34,21 +34,21 @@ static int		is_valid_move(t_map *map, t_piece *piece, int x, int y)
 
 	c = map->pc;
 	match_count = 0;
-	if (piece->y_len - piece->y_trim + y > map->y_len)
+	if (piece->y_len + y > map->y_len)
 		return (-1);
-	if (piece->x_len - piece->x_trim + x > map->y_len)
+	if (piece->x_len + x > map->y_len)
 		return (-1);
 	i = 0;
-	while (i < piece->y_len - piece->y_trim)
+	while (i < piece->y_len)
 	{
 		j = 0;
-		while (j < piece->x_len - piece->x_trim)
+		while (j < piece->x_len)
 		{
-			if (ft_tolower(map->matrix[i + y][j + x]) == c && piece->shape[i + piece->y_trim][j + piece->x_trim] == '*')
+			if (ft_tolower(map->matrix[i + y][j + x]) == c && piece->shape[i][j] == '*')
 			{
 				match_count++;
 			}
-			else if(ft_tolower(map->matrix[i + y][j + x]) == map->oc && piece->shape[i + piece->y_trim][j + piece->x_trim] == '*')
+			else if(ft_tolower(map->matrix[i + y][j + x]) == map->oc && piece->shape[i][j] == '*')
 				return (-1);
 			j++;
 		}
@@ -70,13 +70,12 @@ t_list		*gen_moves(t_map *map, t_piece *piece)
 	int		i;
 	int		j;
 
-	//i = piece->y_len - piece->y_trim - 1;
 	i = 0;
 	head = NULL;
 	while (i < map->y_len)
 	{
 		j = 0;
-		while (j + piece->x_len - piece->x_trim - 1 < map->x_len)
+		while (j + piece->x_len - 1 < map->x_len)
 		{
 			if (is_valid_move(map, piece, j, i) == 0)
 			{

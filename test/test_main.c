@@ -54,9 +54,9 @@ int main(void)
 		while (moves != NULL)
 		{
 			fin = (t_move *)moves->content;
-			ft_putnbr_fd(fin->y, 1);
+			ft_putnbr_fd(fin->y - piece->y_trim, 1);
 			ft_putchar_fd(' ', 1);
-			ft_putnbr_fd(fin->x, 1);
+			ft_putnbr_fd(fin->x - piece->x_trim, 1);
 			ft_putchar_fd('\n', 1);
 			moves = moves->next;
 		}
