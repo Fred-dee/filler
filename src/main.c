@@ -21,7 +21,10 @@ static int	play_move(t_list *moves, t_map *map, t_piece *piece)
 		return (-1);
 	ft_lstquicksort(&moves);
 	lst = ft_lstgettail(moves);
-	fin = (t_move *)moves->content;
+	if(eval_board_down(map->matrix, map->pc, map->y_len, map->x_len) < (size_t)map->y_len / 2)
+		fin = (t_move *)moves->content;
+	else
+		fin = (t_move *)lst->content;
 	if (fin != NULL)
 	{ 
 		ft_putnbr_fd(fin->y - piece->y_trim, 1);
