@@ -1,21 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   helper_functions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdilapi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/23 11:39:56 by mdilapi           #+#    #+#             */
-/*   Updated: 2018/05/23 11:39:57 by mdilapi          ###   ########.fr       */
+/*   Created: 2018/07/30 10:16:20 by mdilapi           #+#    #+#             */
+/*   Updated: 2018/07/30 10:16:38 by mdilapi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# define BUFF_SIZE 1
-# define MIN_INT (-MI - 1)
-# define MI 2147483647
-# include "./libft.h"
+#include "../includes/filler.h"
 
-int	get_next_line(const int fd, char **line);
-#endif
+int		last_index_of(char const *s, char c)
+{
+	int i;
+	int	ret;
+
+	i = 0;
+	ret = -1;
+	if (s != NULL)
+	{
+		while (s[i] != '\0')
+		{
+			if (s[i] == c)
+				ret = i;
+			i++;
+		}
+		if (s[i] == c)
+			return (i);
+	}
+	return (ret);
+}

@@ -24,7 +24,7 @@ int main(void)
 	int fd;
 	int i = 0;
 
-	ptr = fopen("map00", "r");
+	ptr = fopen("map01", "r");
 	fd = fileno(ptr);
 	if((map = (t_map *)malloc(sizeof(t_map))) == NULL)
 		return (-1);
@@ -34,22 +34,18 @@ int main(void)
 		printf("Couldnt init the map\n");
 	if(get_map(map, fd) == -1)
 		printf("Couldnt get the map\n");
-	//while (i < map->y_len)
-	//{
-	//	printf("%d: %s\n",i, map->matrix[i]);
-	//	i++;
-	//}
 	if(get_piece(piece, fd) == -1)
 		printf("Couldnt get the piece\n");
 	i = 0;
 	while (i < map->y_len)
 	{
-		printf("%d: %s\n",i, map->matrix[i]);
+		printf("%s\n", map->matrix[i]);
 		i++;
 	}
 	i = 0;
 	while (i < piece->y_len)
 		printf("%s\n", piece->shape[i++]);
+	printf("The maps y->len: %d, its x->len: %d\n",map->y_len, map->x_len );
 	moves = gen_moves(map, piece);
 	if (moves != NULL)
 	{
@@ -58,8 +54,6 @@ int main(void)
 		while (moves != NULL)
 		{
 			fin = (t_move *)moves->content;
-			//printf("piece y_trim: %d, piece x_trim :%d\n",piece->y_trim, piece->x_trim);
-			//printf("this is in main. move has y: %d\n", fin->y);
 			ft_putnbr_fd(fin->y, 1);
 			ft_putchar_fd(' ', 1);
 			ft_putnbr_fd(fin->x, 1);
@@ -69,6 +63,7 @@ int main(void)
 	}
 	else
 	{
+		printf("Moves are null\n");
 		ft_putstr_fd("0 0\n", 1);
 	}
 

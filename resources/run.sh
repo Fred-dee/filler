@@ -17,7 +17,7 @@ then
 fi
 if [ "$2" == "p1" ] || [ "$1" == "p1" ]
 then
-	./filler_vm -f ./maps/map00 -p1 ./players/mdilapi.filler -p2 ./players/rhohls.filler
+	./filler_vm -f ./maps/map01 -p1 ./players/mdilapi.filler -p2 ./players/abanlin.filler
 fi
 if [ "$2" == "p2" ] || [ "$1" == "p2" ]
 then

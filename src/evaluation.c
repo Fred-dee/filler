@@ -14,9 +14,10 @@
 
 size_t	eval_board_right(char **b, char pc, int y_len)
 {
-	char	*tmp;
+	//char	*tmp;
 	int		i;
 	int		j;
+	int		move;
 	size_t	ret;
 
 	i = 0;
@@ -24,14 +25,14 @@ size_t	eval_board_right(char **b, char pc, int y_len)
 	while (i < y_len)
 	{
 		j = 0;
-		tmp = ft_strrchr(b[i], pc);
-		if (tmp != NULL)
+		move = last_index_of(b[i], pc);
+		if (move != -1)
 		{
-			tmp++;
-			while (*tmp == '.' && *tmp != '\0')
+			move++;
+			while (b[i][move] == '.' && b[i][move] != '\0')
 			{
 				j++;
-				tmp++;
+				move++;
 			}
 		}
 		ret += j;
@@ -52,7 +53,6 @@ size_t	eval_board_left(char **b, char pc, int y_len)
 	while (i < y_len)
 	{
 		j = 0;
-		printf("i is: %d\n", i);
 		tmp = ft_strchr(b[i], pc);
 		if (tmp != NULL)
 		{

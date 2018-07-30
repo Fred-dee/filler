@@ -54,4 +54,6 @@ size_t			eval_board_right(char **b, char pc, int y_len);
 size_t			eval_board_left(char **b, char pc, int y_len);
 size_t			eval_board_up(char **b, char pc, int y_len, int x_len);
 size_t			eval_board_down(char **b, char pc, int y_len, int x_len);
+int				index_of(const char *s, const char c);
+int				last_index_of(char const *s, char c);
 #endif

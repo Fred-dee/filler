@@ -39,31 +39,26 @@ static int		is_valid_move(t_map *map, t_piece *piece, int x, int y)
 	if (piece->x_len - piece->x_trim + x > map->y_len)
 		return (-1);
 	i = 0;
-	//printf("passed the first tests\n");
 	while (i < piece->y_len - piece->y_trim)
 	{
 		j = 0;
 		while (j < piece->x_len - piece->x_trim)
 		{
-			if(ft_tolower(map->matrix[i + y][j + x]) == c)
-			{
-				printf("found one of my own pieces %d %d\n",i + y, j + x);
-				printf("my shape at %d %d is: %c\n", i + piece->y_trim, j + piece->x_trim, piece->shape[i + piece->y_trim][j + piece->x_trim]);
-			}
 			if (ft_tolower(map->matrix[i + y][j + x]) == c && piece->shape[i + piece->y_trim][j + piece->x_trim] == '*')
 			{
-				printf("Foudnd a match\n");
 				match_count++;
 			}
 			else if(ft_tolower(map->matrix[i + y][j + x]) == map->oc && piece->shape[i + piece->y_trim][j + piece->x_trim] == '*')
-				return (-1); // this is the case where it'd overlap
+				return (-1);
 			j++;
 		}
-		//printf("\n");
 		i++;
 	}
 	if (match_count != 1)
+	{
+		//printf("at x: %d, and y: %d, i found matches: %d\n",x, y, match_count);
 		return (-1);
+	}
 	return (0);
 }
 
@@ -75,18 +70,16 @@ t_list		*gen_moves(t_map *map, t_piece *piece)
 	int		i;
 	int		j;
 
-	i = piece->y_len - piece->y_trim - 1;
+	//i = piece->y_len - piece->y_trim - 1;
+	i = 0;
 	head = NULL;
-	//printf("piece->y_len - 1: %d\n", i);
 	while (i < map->y_len)
 	{
 		j = 0;
 		while (j + piece->x_len - piece->x_trim - 1 < map->x_len)
 		{
-			//printf("j + piece->x_len - piece->x_trim - 1: %d\n", j + piece->x_len - piece->x_trim -1);
 			if (is_valid_move(map, piece, j, i) == 0)
 			{
-				//printf("found a valid move \n");
 				val_mov = new_move(j, i);
 				if (head == NULL)
 					head = ft_lstnew(val_mov, sizeof(t_move *));

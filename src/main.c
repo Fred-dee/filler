@@ -16,6 +16,8 @@ static int	play_move(t_list *moves, t_map *map, t_piece *piece)
 {
 	t_move	*fin;
 
+	//(void) map;
+	//(void) piece;
 	if(apply_heuristic(&moves, map, piece) == -1)
 		return (-1);
 	ft_lstquicksort(&moves);

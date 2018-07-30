@@ -18,7 +18,8 @@ SRC_NAME =	main.c			\
 			piece.c	\
 			play.c	\
 			heuristic.c \
-			evaluation.c
+			evaluation.c \
+			helper_functions.c
 
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 
