@@ -48,7 +48,7 @@ void	set_weight_init(double init_eval[4], double weights[4], t_map *map)
 {
 	if (ft_tolower(map->pc) == 'o')
 	{
-		weights[0] = 0.50;
+		weights[0] = 0.45;
 		weights[1] = 0.05;
 		weights[2] = 0.20;
 		weights[3] = 0.30;
@@ -56,7 +56,7 @@ void	set_weight_init(double init_eval[4], double weights[4], t_map *map)
 	else
 	{
 		weights[0] = 0.10;
-		weights[1] = 0.20;
+		weights[1] = 0.30;
 		weights[2] = 0.40;
 		weights[3] = 0.20;		
 	}
