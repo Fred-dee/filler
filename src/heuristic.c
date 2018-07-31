@@ -55,10 +55,10 @@ void	set_weight_init(double init_eval[4], double weights[4], t_map *map)
 	}
 	else
 	{
-		weights[0] = 0.10;
+		weights[0] = 0.05;
 		weights[1] = 0.30;
-		weights[2] = 0.40;
-		weights[3] = 0.20;		
+		weights[2] = 0.50;
+		weights[3] = 0.15;		
 	}
 	init_eval[0] = (int) (eval_board_right(map->matrix, map->pc, map->y_len) * weights[0]);
 	init_eval[1] = (int) (eval_board_left(map->matrix, map->pc, map->y_len) * weights[1]);
