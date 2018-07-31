@@ -24,18 +24,18 @@ int		init_board(char ***b, int y_len, int x_len)
 	return (0);
 }
 
-void	place_piece(char **b, int mx, int my, t_map *map, t_piece *piece)
+void	place_piece(char **b, t_move *mv, t_map *map, t_piece *piece)
 {
 	int	i;
 	int	j;
 
-	i = my;
-	while (i - my < piece->y_len)
+	i = mv->y;
+	while (i - mv->y < piece->y_len)
 	{
-		j = mx;
-		while (j - mx < piece->x_len)
+		j = mv->x;
+		while (j - mv->x < piece->x_len)
 		{
-			if (piece->shape[i - my][j - mx] == '*')
+			if (piece->shape[i - mv->y][j - mv->x] == '*')
 				b[i][j] = map->pc;
 			j++;
 		}
@@ -95,17 +95,9 @@ int		apply_heuristic(t_list **lst, t_map *map, t_piece *piece)
 	while (tmp != NULL)
 	{
 		copy_board(board, map->matrix, map->y_len);
-		if (board != NULL)
-		{
-			place_piece(board, ((t_move *)tmp->content)->x, ((t_move *)tmp->content)->y, map, piece);
-			tmp->content_size = calc_eval(board, map, weights, init_eval);
-			tmp = tmp->next;
-		}
-		else
-		{
-			perror("Was unable to copy the board");
-			return (-1);
-		}
+		place_piece(board, ((t_move *)tmp->content), map, piece);
+		tmp->content_size = calc_eval(board, map, weights, init_eval);
+		tmp = tmp->next;
 	}
 	return (0);
 }

@@ -55,22 +55,11 @@ void		piece_right_shorten(t_piece *p)
 	p->x_len -= count;
 }
 
-int			trim_piece(t_piece *p)
+int			calc_x_trim(t_piece *p, int i)
 {
-	int		i;
-	int		j;
-	int		flag;
-	char	**new_piece;
+	int j;
+	int flag;
 
-	i = 0;
-	while (i < p->y_len)
-	{
-		if (ft_strchr(p->shape[i], '*') != NULL)
-			break ;
-		i++;
-	}
-	p->y_trim = i;
-	new_piece = (char **)malloc(sizeof(char *) * p->y_len - i);
 	flag = p->x_len;
 	while (i < p->y_len)
 	{
@@ -87,11 +76,28 @@ int			trim_piece(t_piece *p)
 		}
 		i++;
 	}
-	p->x_trim = flag;
+	return (flag);
+}
+
+int			trim_piece(t_piece *p)
+{
+	int		i;
+	char	**new_piece;
+
+	i = 0;
+	while (i < p->y_len)
+	{
+		if (ft_strchr(p->shape[i], '*') != NULL)
+			break ;
+		i++;
+	}
+	p->y_trim = i;
+	new_piece = (char **)malloc(sizeof(char *) * p->y_len - i);
+	p->x_trim = calc_x_trim(p, i);
 	i = 0;
 	while (i < p->y_len - p->y_trim)
 	{
-		new_piece[i] = ft_strdup(p->shape[i + p->y_trim] + flag);
+		new_piece[i] = ft_strdup(p->shape[i + p->y_trim] + p->x_trim);
 		i++;
 	}
 	p->shape = new_piece;
