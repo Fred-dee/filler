@@ -12,69 +12,63 @@
 
 #include "../includes/filler.h"
 
-static int		get_player_no(const char *s, t_map *map, const int fd)
+static int	get_player_no(const char *s, t_map *map, const int fd)
 {
 	int		read_ret;
 	char	*str;
-	char	*tmp;
 
-	tmp = NULL;
-	while ((read_ret = get_next_line(fd, &str)) > 0 && tmp == NULL)
+	while ((read_ret = get_next_line(fd, &str)) > 0)
 	{
-		tmp = ft_strnstr(str, s, ft_strlen(str));
-		if (tmp != NULL)
+		if (ft_strnstr(str, s, ft_strlen(str)) != NULL)
 		{
-			if ((tmp = ft_strnstr(str, "p1", ft_strlen(str))) != NULL)
+			if ((ft_strnstr(str, "p1", ft_strlen(str))) != NULL)
 			{
-				map->player_no = 1;
 				map->pc = 'o';
 				map->oc = 'x';
 			}
-			else if ((tmp = ft_strnstr(str, "p2", ft_strlen(str))) != NULL)
+			else if ((ft_strnstr(str, "p2", ft_strlen(str))) != NULL)
 			{
-				map->player_no = 2;
 				map->pc = 'x';
 				map->oc = 'o';
 			}
-			break;
+			break ;
 		}
 		free(str);
 	}
-	if (read_ret == -1 || tmp == NULL)
+	if (read_ret == -1)
 		return (-1);
 	return (0);
 }
 
-void	free_arr(char **arr, int len)
+void		free_arr(char **arr, int len)
 {
 	int i;
 
 	i = 0;
-	if(arr != NULL)
+	if (arr != NULL)
 	{
-		while(i < len && arr[i] != NULL)
+		while (i < len && arr[i] != NULL)
 			free(arr[i++]);
 		free(arr);
 		arr = NULL;
 	}
-
 }
 
-int		get_map(t_map *map, const int fd)
+int			get_map(t_map *map, const int fd)
 {
-	int 	read_ret;
+	int		read_ret;
 	char	*str;
 	int		i;
 	char	*tmp;
 
-	if((read_ret = get_next_line(fd, &str)) < 0)
+	if ((read_ret = get_next_line(fd, &str)) < 0)
 		return (-1);
 	i = 0;
 	if ((tmp = ft_strnstr(str, "Plateau", ft_strlen(str))) != NULL)
 		read_ret = get_next_line(fd, &str);
 	while (read_ret > 0 && i < map->y_len)
 	{
-		if((read_ret = get_next_line(fd, &str)) == -1)
+		if ((read_ret = get_next_line(fd, &str)) == -1)
 			return (-1);
 		tmp = ft_strchr(str, ' ');
 		tmp = tmp + 1;
@@ -84,7 +78,7 @@ int		get_map(t_map *map, const int fd)
 	return (0);
 }
 
-int		init_map(t_map *map, const int fd)
+int			init_map(t_map *map, const int fd)
 {
 	int		read_ret;
 	char	*str;
@@ -94,19 +88,18 @@ int		init_map(t_map *map, const int fd)
 
 	if ((get_player_no("mdilapi.filler", map, fd)) == -1)
 		return (-1);
-	while((read_ret = get_next_line(fd, &str)) > 0)
-		if((tmp = ft_strnstr(str, "Plateau", ft_strlen(str))) != NULL)
-			break;
-	if((split = ft_strsplit(str, ' ')) == NULL)
+	while ((read_ret = get_next_line(fd, &str)) > 0)
+		if ((tmp = ft_strnstr(str, "Plateau", ft_strlen(str))) != NULL)
+			break ;
+	if ((split = ft_strsplit(str, ' ')) == NULL)
 		return (-1);
 	map->y_len = ft_atoi(split[1]);
 	map->x_len = ft_atoi(split[2]);
-	free_arr(split, 3);
-	if((map->matrix = (char **)malloc(sizeof(char *) * map->y_len)))
+	if ((map->matrix = (char **)malloc(sizeof(char *) * map->y_len)))
 	{
 		i = 0;
-		while(i < map->y_len)
-			if((map->matrix[i++] = ft_strnew(map->x_len)) == NULL)
+		while (i < map->y_len)
+			if ((map->matrix[i++] = ft_strnew(map->x_len)) == NULL)
 				return (-1);
 	}
 	else

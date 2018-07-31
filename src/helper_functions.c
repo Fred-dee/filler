@@ -33,14 +33,30 @@ int		last_index_of(char const *s, char c)
 	return (ret);
 }
 
-double		sum_dblarr(double *arr, size_t size)
+double	sum_dblarr(double *arr, size_t size)
 {
-	double		ret;
+	double	ret;
 	size_t	count;
 
 	count = 0;
 	ret = 0;
 	while (count < size)
-		ret += arr[count++]; 
+		ret += arr[count++];
+	return (ret);
+}
+
+size_t	calc_eval(char **board, t_map *map, double *weights, double *init_eval)
+{
+	size_t ret;
+
+	ret = (size_t)(
+			eval_board_right(board, map->pc, map->y_len) *
+			weights[0]) + sum_dblarr(init_eval, 4);
+	ret += (size_t)(eval_board_left(board, map->pc, map->y_len) *
+		weights[1]) + sum_dblarr(init_eval, 4);
+	ret += (size_t)(eval_board_up(board, map->pc, map->y_len, map->x_len) *
+		weights[2]) + sum_dblarr(init_eval, 4);
+	ret += (size_t)(eval_board_down(board, map->pc, map->y_len, map->x_len) *
+		weights[3]) + sum_dblarr(init_eval, 4);
 	return (ret);
 }

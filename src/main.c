@@ -21,7 +21,7 @@ static int	play_move(t_list *moves, t_map *map, t_piece *piece)
 	ft_lstquicksort(&moves);
 	fin = (t_move *)moves->content;
 	if (fin != NULL)
-	{ 
+	{
 		ft_putnbr_fd(fin->y - piece->y_trim, 1);
 		ft_putchar_fd(' ', 1);
 		ft_putnbr_fd(fin->x - piece->x_trim, 1);
@@ -56,9 +56,9 @@ int			main(void)
 			perror("Couldnt get map");
 		else if (get_piece(piece, 0) == -1)
 			perror("Couldnt get piece");
-	 	else if ((moves = gen_moves(map, piece)) != NULL)
+		else if ((moves = gen_moves(map, piece)) != NULL)
 		{
-			if(play_move(moves, map, piece) == -1)
+			if (play_move(moves, map, piece) == -1)
 				perror("Error trying to play move");
 		}
 		else

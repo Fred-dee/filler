@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../includes/filler.h"
-#include <stdio.h>
 
 void		piece_bottom_shorten(t_piece *p)
 {
@@ -22,8 +21,8 @@ void		piece_bottom_shorten(t_piece *p)
 	count = 0;
 	while (i >= 0)
 	{
-		if(ft_strchr(p->shape[i], '*') != NULL)
-			break;
+		if (ft_strchr(p->shape[i], '*') != NULL)
+			break ;
 		count++;
 		i--;
 	}
@@ -40,26 +39,22 @@ void		piece_right_shorten(t_piece *p)
 	j = p->x_len - 1;
 	count = 0;
 	flag = 0;
-	while (j >= 0)
+	while (j >= 0 && flag == 0)
 	{
 		i = 0;
-		while (i < p->y_len)
+		while (i < p->y_len && flag == 0)
 		{
-			if(p->shape[i][j] == '*')
-			{
+			if (p->shape[i][j] == '*')
 				flag = 1;
-				break;
-			}
 			i++;
 		}
-		if(flag == 0)
+		if (flag == 0)
 			count++;
-		else
-			break;
 		j--;
 	}
 	p->x_len -= count;
 }
+
 int			trim_piece(t_piece *p)
 {
 	int		i;
@@ -68,10 +63,10 @@ int			trim_piece(t_piece *p)
 	char	**new_piece;
 
 	i = 0;
-	while(i < p->y_len)
+	while (i < p->y_len)
 	{
 		if (ft_strchr(p->shape[i], '*') != NULL)
-			break;
+			break ;
 		i++;
 	}
 	p->y_trim = i;
@@ -82,11 +77,11 @@ int			trim_piece(t_piece *p)
 		j = 0;
 		while (j < p->x_len)
 		{
-			if(p->shape[i][j] == '*')
+			if (p->shape[i][j] == '*')
 			{
 				if (j < flag)
 					flag = j;
-				break;
+				break ;
 			}
 			j++;
 		}
@@ -94,7 +89,7 @@ int			trim_piece(t_piece *p)
 	}
 	p->x_trim = flag;
 	i = 0;
-	while(i < p->y_len - p->y_trim)
+	while (i < p->y_len - p->y_trim)
 	{
 		new_piece[i] = ft_strdup(p->shape[i + p->y_trim] + flag);
 		i++;
@@ -105,7 +100,7 @@ int			trim_piece(t_piece *p)
 	piece_bottom_shorten(p);
 	piece_right_shorten(p);
 	return (1);
-} 
+}
 
 int			get_piece(t_piece *p, const int fd)
 {
@@ -123,21 +118,15 @@ int			get_piece(t_piece *p, const int fd)
 			p->y_len = ft_atoi(tmp++);
 			tmp = ft_strchr(tmp, ' ');
 			p->x_len = ft_atoi(tmp);
-			break;
+			break ;
 		}
 		free(str);
 	}
 	if ((p->shape = (char **)malloc(sizeof(char *) * p->y_len)) == NULL)
 		return (-1);
 	i = 0;
-	while(i < p->y_len && (read_ret = get_next_line(fd, &str)) > 0)
-	{
-		p->shape[i] = ft_strnew(p->x_len);
-		ft_strcpy(p->shape[i++], str);
-		free(str);
-	}
-	p->x_trim = 0;
-	p->y_trim = 0;
+	while (i < p->y_len && (read_ret = get_next_line(fd, &str)) > 0)
+		p->shape[i++] = ft_strdup(str);
 	trim_piece(p);
 	return (0);
 }

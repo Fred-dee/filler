@@ -57,4 +57,5 @@ size_t			eval_board_down(char **b, char pc, int y_len, int x_len);
 int				index_of(const char *s, const char c);
 int				last_index_of(char const *s, char c);
 double			sum_dblarr(double *arr, size_t size);
+size_t			calc_eval(char **board, t_map *map, double *weights, double *init_eval);
 #endif
