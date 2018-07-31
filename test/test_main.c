@@ -37,6 +37,7 @@ int main(void)
 	if(get_piece(piece, fd) == -1)
 		printf("Couldnt get the piece\n");
 	i = 0;
+	printf("The pc is: %c\n", map->pc);
 	while (i < map->y_len)
 	{
 		printf("%s\n", map->matrix[i]);
@@ -46,6 +47,7 @@ int main(void)
 	while (i < piece->y_len)
 		printf("%s\n", piece->shape[i++]);
 	printf("The maps y->len: %d, its x->len: %d\n",map->y_len, map->x_len );
+	printf("The piece y->len: %d and its x_len: %d\n",piece->y_len, piece->x_len);
 	moves = gen_moves(map, piece);
 	if (moves != NULL)
 	{

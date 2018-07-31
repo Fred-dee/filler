@@ -13,7 +13,53 @@
 #include "../includes/filler.h"
 #include <stdio.h>
 
+void		piece_bottom_shorten(t_piece *p)
+{
+	int		i;
+	int		count;
 
+	i = p->y_len - 1;
+	count = 0;
+	while (i >= 0)
+	{
+		if(ft_strchr(p->shape[i], '*') != NULL)
+			break;
+		count++;
+		i--;
+	}
+	p->y_len -= count;
+}
+
+void		piece_right_shorten(t_piece *p)
+{
+	int		i;
+	int		j;
+	int		count;
+	int		flag;
+
+	j = p->x_len - 1;
+	count = 0;
+	flag = 0;
+	while (j >= 0)
+	{
+		i = 0;
+		while (i < p->y_len)
+		{
+			if(p->shape[i][j] == '*')
+			{
+				flag = 1;
+				break;
+			}
+			i++;
+		}
+		if(flag == 0)
+			count++;
+		else
+			break;
+		j--;
+	}
+	p->x_len -= count;
+}
 int			trim_piece(t_piece *p)
 {
 	int		i;
@@ -55,7 +101,9 @@ int			trim_piece(t_piece *p)
 	}
 	p->shape = new_piece;
 	p->y_len -= p->y_trim;
-	p->x_len -= p->x_trim; 
+	p->x_len -= p->x_trim;
+	piece_bottom_shorten(p);
+	piece_right_shorten(p);
 	return (1);
 } 
 

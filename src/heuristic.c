@@ -48,10 +48,10 @@ void	set_weight_init(double init_eval[4], double weights[4], t_map *map)
 {
 	if (ft_tolower(map->pc) == 'o')
 	{
-		weights[0] = 0.35;
-		weights[1] = 0.15;
-		weights[2] = 0.15;
-		weights[3] = 0.35;
+		weights[0] = 0.50;
+		weights[1] = 0.05;
+		weights[2] = 0.20;
+		weights[3] = 0.30;
 	}
 	else
 	{
@@ -89,10 +89,10 @@ int	apply_heuristic(t_list **lst, t_map *map, t_piece *piece)
 		{
 			place_piece(board, ((t_move *)tmp->content)->x, ((t_move *)tmp->content)->y, map, piece);
 			tmp->content_size = (size_t)(
-					eval_board_right(board, map->pc, map->y_len) * weights[0]) + init_eval[0];
-			tmp->content_size += (size_t)(eval_board_left(board, map->pc, map->y_len) * weights[1]) + init_eval[1];
-			tmp->content_size += (size_t)(eval_board_up(board, map->pc, map->y_len, map->x_len) * weights[2]) + init_eval[2];
-			tmp->content_size += (size_t)(eval_board_down(board, map->pc, map->y_len, map->x_len) * weights[3]) + init_eval[3];
+					eval_board_right(board, map->pc, map->y_len) * weights[0]) + sum_dblarr(init_eval, 4);
+			tmp->content_size += (size_t)(eval_board_left(board, map->pc, map->y_len) * weights[1]) + sum_dblarr(init_eval, 4);
+			tmp->content_size += (size_t)(eval_board_up(board, map->pc, map->y_len, map->x_len) * weights[2]) + sum_dblarr(init_eval, 4);
+			tmp->content_size += (size_t)(eval_board_down(board, map->pc, map->y_len, map->x_len) * weights[3]) + sum_dblarr(init_eval, 4);
 			tmp = tmp->next;
 		}
 		else

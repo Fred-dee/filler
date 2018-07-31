@@ -32,3 +32,15 @@ int		last_index_of(char const *s, char c)
 	}
 	return (ret);
 }
+
+double		sum_dblarr(double *arr, size_t size)
+{
+	double		ret;
+	size_t	count;
+
+	count = 0;
+	ret = 0;
+	while (count < size)
+		ret += arr[count++]; 
+	return (ret);
+}

@@ -34,9 +34,11 @@ static int		is_valid_move(t_map *map, t_piece *piece, int x, int y)
 
 	c = map->pc;
 	match_count = 0;
+
+
 	if (piece->y_len + y > map->y_len)
 		return (-1);
-	if (piece->x_len + x > map->y_len)
+	if (piece->x_len + x > map->x_len)
 		return (-1);
 	i = 0;
 	while (i < piece->y_len)
