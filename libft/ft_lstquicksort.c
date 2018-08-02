@@ -12,6 +12,27 @@
 
 #include "libft.h"
 
+int		work(t_list *curr, t_list *pivot, t_list *n_head, t_list *prev)
+{
+	if (curr->content_size > pivot->content_size)
+	{
+		if ((*n_head) == NULL)
+			(*n_head) = curr;
+		prev = curr;
+		curr = curr->next;
+		return (1);
+	}
+	return (0);
+}
+
+t_list	*last(t_list *n_head, t_list *pivot, t_list *n_tail, t_list *in_t)
+{
+	if ((*n_head) == NULL)
+		(*n_head) = pivot;
+	(*n_tail) = in_t;
+	return (pivot);
+}
+
 t_list	*part(t_list *head, t_list *tail, t_list **n_head, t_list **n_tail)
 {
 	t_list	*pivot;
@@ -26,14 +47,7 @@ t_list	*part(t_list *head, t_list *tail, t_list **n_head, t_list **n_tail)
 	in_t = pivot;
 	while (curr != pivot)
 	{
-		if (curr->content_size > pivot->content_size)
-		{
-			if ((*n_head) == NULL)
-				(*n_head) = curr;
-			prev = curr;
-			curr = curr->next;
-		}
-		else
+		if (work(curr, pivot, n_head, prev) == 0)
 		{
 			if (prev)
 				prev->next = curr->next;
@@ -44,10 +58,7 @@ t_list	*part(t_list *head, t_list *tail, t_list **n_head, t_list **n_tail)
 			curr = tmp;
 		}
 	}
-	if ((*n_head) == NULL)
-		(*n_head) = pivot;
-	(*n_tail) = in_t;
-	return (pivot);
+	return (last(n_head, pivot, n_tail, in_t));
 }
 
 t_list	*qsr(t_list *head, t_list *tail)
