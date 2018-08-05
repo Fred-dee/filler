@@ -12,12 +12,12 @@
 
 #include "libft.h"
 
-void		work(t_list **curr,t_list **n_head, t_list **prev)
+void	work(t_list **curr, t_list **n_head, t_list **prev)
 {
-		if ((*n_head) == NULL)
-			(*n_head) = *curr;
-		*prev = *curr;
-		*curr = (*curr)->next;
+	if ((*n_head) == NULL)
+		(*n_head) = *curr;
+	*prev = *curr;
+	*curr = (*curr)->next;
 }
 
 t_list	*last(t_list **n_head, t_list *pivot, t_list **n_tail, t_list *in_t)
