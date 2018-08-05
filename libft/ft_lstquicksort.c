@@ -12,20 +12,15 @@
 
 #include "libft.h"
 
-int		work(t_list *curr, t_list *pivot, t_list *n_head, t_list *prev)
+void		work(t_list **curr,t_list **n_head, t_list **prev)
 {
-	if (curr->content_size > pivot->content_size)
-	{
 		if ((*n_head) == NULL)
-			(*n_head) = curr;
-		prev = curr;
-		curr = curr->next;
-		return (1);
-	}
-	return (0);
+			(*n_head) = *curr;
+		*prev = *curr;
+		*curr = (*curr)->next;
 }
 
-t_list	*last(t_list *n_head, t_list *pivot, t_list *n_tail, t_list *in_t)
+t_list	*last(t_list **n_head, t_list *pivot, t_list **n_tail, t_list *in_t)
 {
 	if ((*n_head) == NULL)
 		(*n_head) = pivot;
@@ -46,8 +41,9 @@ t_list	*part(t_list *head, t_list *tail, t_list **n_head, t_list **n_tail)
 	curr = head;
 	in_t = pivot;
 	while (curr != pivot)
-	{
-		if (work(curr, pivot, n_head, prev) == 0)
+		if (curr->content_size > pivot->content_size)
+			work(&curr, n_head, &prev);
+		else
 		{
 			if (prev)
 				prev->next = curr->next;
@@ -57,7 +53,6 @@ t_list	*part(t_list *head, t_list *tail, t_list **n_head, t_list **n_tail)
 			in_t = curr;
 			curr = tmp;
 		}
-	}
 	return (last(n_head, pivot, n_tail, in_t));
 }
 
