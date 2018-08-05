@@ -1,6 +1,6 @@
 # Binary
 
-NAME = ./resources/players/mdilapi.filler
+NAME = ./resources/players/filler
 
 # Path
 

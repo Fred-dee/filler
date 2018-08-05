@@ -86,7 +86,7 @@ int			init_map(t_map *map, const int fd)
 	int		i;
 	char	*tmp;
 
-	if ((get_player_no("mdilapi.filler", map, fd)) == -1)
+	if ((get_player_no("filler", map, fd)) == -1)
 		return (-1);
 	while ((read_ret = get_next_line(fd, &str)) > 0)
 		if ((tmp = ft_strnstr(str, "Plateau", ft_strlen(str))) != NULL)
